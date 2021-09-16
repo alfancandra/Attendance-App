@@ -13,7 +13,7 @@ use App\Mail\VerifyEmail;
 use Mail;
 
 class RegisterController extends Controller {
-    
+
     // Page Register
     public function index() {
         return view('auth.register');
@@ -49,7 +49,8 @@ class RegisterController extends Controller {
             // Proses verifikasi email, dan jangan langsung di loginkan
             $this->emailverification($request->email);
 
-            return response()->json($response, Response::HTTP_CREATED);
+            // return response()->json($response, Response::HTTP_CREATED);
+            return redirect()->route('login');
         }catch(QueryException $e){
             return response()->json([
                 'message' => "Failed " . $e->errorInfo

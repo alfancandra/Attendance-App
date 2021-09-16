@@ -29,6 +29,10 @@ Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::get('/forgotpassword', [ForgotPasswordController::class, 'index'])->name('forgotpassword');
 Route::get('/resetpassword', [ResetPasswordController::class, 'index'])->name('resetpassword');
 
+// POST data
+Route::post('register',[RegisterController::class,'store'])->name('registeruser');
+Route::post('login',[LoginController::class,'login'])->name('loginuser');
+
 // Verify Email
 Route::get('verify-email/{user_token}',[RegisterController::class,'verify'])->name('verifyLink');
 

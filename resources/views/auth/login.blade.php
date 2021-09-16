@@ -9,18 +9,19 @@
                             <img class="img-fluid login-logo mx-auto" src="{{ asset('assets') }}/assets/img/logo.png" alt="Logo Glints">
                         </div>
                         <div class="card-body">
-                            <form autocomplete="off">
+                            <form autocomplete="off" action="{{ route('loginuser') }}" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>
-                                    <input class="form-control" id="email" type="email" placeholder="Enter email address" />
+                                    <input class="form-control" name="email" id="email" type="email" placeholder="Enter email address" />
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" for="password">{{ __('Password') }}</label>
-                                    <input class="form-control" id="password" type="password" placeholder="Enter password" />
+                                    <input class="form-control" name="password" id="password" type="password" placeholder="Enter password" />
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                     <a class="small" href="/forgotpassword">{{ __('Forgot Password?') }}</a>
-                                    <a class="btn btn-primary lift" href="/dashboard">{{ __('Login') }}</a>
+                                    <button class="btn btn-primary lift" type="submit">{{ __('Login') }}</button>
                                 </div>
                             </form>
                         </div>

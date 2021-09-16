@@ -9,22 +9,24 @@
                             <img class="img-fluid login-logo mx-auto" src="{{ asset('assets') }}/assets/img/logo.png" alt="Logo Glints">
                         </div>
                         <div class="card-body">
-                            <form autocomplete="off">
+                            <form autocomplete="off" action="{{ route('registeruser') }}" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label class="small mb-1" for="fullname">{{ __('Full Name') }}</label>
-                                        <input class="form-control" id="fullname" type="text" placeholder="Enter your fullname" />
+                                        <input class="form-control" name="name" id="fullname" type="text" placeholder="Enter your fullname" />
                                     </div>
+                                    @if(session()->has('emailTerpakai'))<p class="text-danger">{{session('emailTerpakai')}}</p>@endif
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>
-                                    <input class="form-control" id="email" type="email" aria-describedby="email" placeholder="Enter email address" />
+                                    <input class="form-control" name="email" id="email" type="email" aria-describedby="email" placeholder="Enter email address" />
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="small mb-1" for="password">{{ __('Password') }}</label>
-                                            <input class="form-control" id="password" type="password" placeholder="Enter password" />
+                                            <input class="form-control" name="password" id="password" type="password" placeholder="Enter password" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -34,7 +36,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" href="/login">{{ __('Create Account') }}</a></div>
+                                <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block">{{ __('Create Account') }}</button></div>
                             </form>
                         </div>
                         <div class="card-footer text-center">
