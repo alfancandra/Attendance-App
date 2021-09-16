@@ -8,14 +8,5 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function register()
-    {
-        $register = User::all();
-        $response = [
-            'message' => 'User list',
-            'data' => $register
-        ];
-
-        return response()->json($response,Response::HTTP_OK);
-    }
+    //
 }
