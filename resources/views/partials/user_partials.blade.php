@@ -23,16 +23,25 @@
             <div id="layoutSidenav_nav">
                 <nav class="sidenav shadow-right sidenav-light">
                     <div class="sidenav-menu">
-                        <div class="nav accordion" id="accordionSidenav">
-                            
-                            <div class="sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                                Charts
+                        <div class="nav accordion" id="accordionSidenav">     
+                            <div class="sidenav-menu-heading">Main</div>
+                            <a class="nav-link" href="/dashboard">
+                                <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                                Dashboards
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                                Tables
+                            <div class="sidenav-menu-heading">User</div>
+                            <a class="nav-link" href="/#">
+                                <div class="nav-link-icon"><i data-feather="bar-chart-2"></i></div>
+                                Report
+                            </a>
+                            <a class="nav-link" href="/#">
+                                <div class="nav-link-icon"><i data-feather="user"></i></div>
+                                Profile
+                            </a>
+                            <div class="sidenav-menu-heading">Logout</div>
+                            <a class="nav-link" href="/login">
+                                <div class="nav-link-icon"><i data-feather="log-out"></i></div>
+                                Logout
                             </a>
                         </div>
                     </div>
@@ -45,7 +54,7 @@
                 </nav>
             </div>
             <div id="layoutSidenav_content">
-                @yield('auth_content')
+                @yield('user_content')
                 <footer class="footer mt-auto footer-light">
                     <div class="container-fluid">
                         <div class="row">

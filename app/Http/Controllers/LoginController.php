@@ -27,22 +27,24 @@ class LoginController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors(),
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+            // return response()->json($validator->errors(),
+            // Response::HTTP_UNPROCESSABLE_ENTITY);
+            return redirect() -> route('login') -> with(['error' => 'Please enter email and password!']);
         }
 
         try{
             $akun = $request->only('email','password');
             if(Auth::attempt($akun)){
                 $AuthUser = Auth::user();
-                return response()->json('login');
-            }else{
-                return response()->json('gagal');
+                return redirect() -> route('dashboard');
+            } else {
+                return redirect() -> route('login') -> with(['error' => 'Wrong email or password!']);
             }
         }catch(QueryException $e){
-            return response()->json([
-                'message' => "Failed " . $e->errorInfo
-            ]);
+            // return response()->json([
+            //     'message' => "Failed " . $e->errorInfo
+            // ]);
+            return redirect() -> route('login') -> with(['error' => $e->errorInfo]);
         }
     }
 }
