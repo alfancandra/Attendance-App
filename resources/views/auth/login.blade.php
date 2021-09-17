@@ -15,7 +15,7 @@
                                     {{ $message }}
                                 </div>
                             @endif
-                            <form autocomplete="off" action="{{ route('loginuser') }}" method="POST">
+                            <form autocomplete="off" action="{{ route('post_login') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>
