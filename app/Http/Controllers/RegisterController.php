@@ -23,16 +23,22 @@ class RegisterController extends Controller {
     public function store(Request $request)
     {
         // Validasi data
-        $validator = Validator::make($request->all(),[
-            'name' => ['required'],
-            'email' => ['required'],
-            'password' => ['required']
-        ]);
+        // $validator = Validator::make($request->all(),[
+        //     'name' => ['required'],
+        //     'email' => ['required'],
+        //     'password' => ['min:6', 'required_with:confirm_password', 'same:confirm_password'],
+        //     'confirm_password' => ['min:6']
+        // ]);
+        // if($validator->fails()){
+        //     return response()->json($validator->errors(),
+        //     Response::HTTP_UNPROCESSABLE_ENTITY);
+        // }
 
-        if($validator->fails()){
-            return response()->json($validator->errors(),
-            Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
+        ]);
 
         // Store to DB
         try{
@@ -49,12 +55,12 @@ class RegisterController extends Controller {
             // Proses verifikasi email, dan jangan langsung di loginkan
             $this->emailverification($request->email);
 
-            // return response()->json($response, Response::HTTP_CREATED);
-            return redirect()->route('login');
+            return redirect()->route('login')->with(['success' => 'An email has been sent to your email address containing an activation link. Please click on the link to activate your account.']);
         }catch(QueryException $e){
-            return response()->json([
-                'message' => "Failed " . $e->errorInfo
-            ]);
+            // return response()->json([
+            //     'message' => "Failed " . $e->errorInfo
+            // ]);
+            return redirect()->route('register')->with(['error' => $e->errorInfo]);
         }
     }
 

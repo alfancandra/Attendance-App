@@ -9,7 +9,19 @@
                             <img class="img-fluid login-logo mx-auto" src="{{ asset('assets') }}/assets/img/logo.png" alt="Logo Glints">
                         </div>
                         <div class="card-body">
-                            <form autocomplete="off" action="{{ route('loginuser') }}" method="POST">
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block mb-3">
+                                <button type="button" class="close" data-dismiss="alert">×</button>    
+                                    {{ $message }}
+                                </div>
+                            @endif
+                            @if ($message = Session::get('error'))
+                                <div class="alert alert-danger alert-block mb-3">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                                    {{ $message }}
+                                </div>
+                            @endif
+                            <form autocomplete="off" action="{{ route('login') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>

@@ -287,7 +287,7 @@ img {
 }
 
 .login-logo {
-    width: 10rem;
+    width: 25rem;
     height: auto;
     display: block;
     margin-left: auto;
@@ -295,7 +295,6 @@ img {
 }
 
 .auth-container {
-	width: 25em;
 	display: flex;
 	justify-content: center;
 	align-items: center;

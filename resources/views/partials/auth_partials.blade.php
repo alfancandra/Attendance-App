@@ -19,7 +19,7 @@
                 <footer class="footer mt-auto footer-dark">
                     <div class="container-fluid">
                         <div class="col-md-12 align-items-center justify-content-center small" style="display: flex;">
-                            Copyright &copy; Group 3 | Attendance App 
+                            Copyright &copy; Group 3 | Attendance App
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
