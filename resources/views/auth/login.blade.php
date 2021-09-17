@@ -9,6 +9,12 @@
                             <img class="img-fluid login-logo mx-auto" src="{{ asset('assets') }}/assets/img/logo.png" alt="Logo Glints">
                         </div>
                         <div class="card-body">
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block mb-2">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                                    {{ $message }}
+                                </div>
+                            @endif
                             @if ($message = Session::get('error'))
                                 <div class="alert alert-danger alert-block mb-2">
                                     <button type="button" class="close" data-dismiss="alert">×</button>    

@@ -55,7 +55,7 @@ class RegisterController extends Controller {
             // Proses verifikasi email, dan jangan langsung di loginkan
             $this->emailverification($request->email);
 
-            return redirect()->route('login')->with(['success' => 'An email has been sent to your email address containing an activation link. Please click on the link to activate your account.']);
+            return redirect()->route('login')->with(['success' => 'Success create account!. Please check your email and click the link to activate your account.']);
         }catch(QueryException $e){
             // return response()->json([
             //     'message' => "Failed " . $e->errorInfo
