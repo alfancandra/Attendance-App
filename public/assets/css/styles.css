@@ -282,7 +282,7 @@ img {
 }
 
 .img-logo {
-    width: 18rem;
+    width: 15rem;
     height: auto;
 }
 
@@ -591,6 +591,11 @@ mark,
 
 .img-fluid {
 	max-width: 100%;
+	height: auto;
+}
+
+.img-error {
+	width: 50rem;
 	height: auto;
 }
 
@@ -21094,7 +21099,9 @@ i-feather svg {
 }
 
 .img-account-profile {
+	width: 10rem;
 	height: 10rem;
+	border-radius: 50%;
 }
 
 .cc-color-gmail {

@@ -26,17 +26,17 @@
                 <nav class="sidenav shadow-right sidenav-light">
                     <div class="sidenav-menu">
                         <div class="nav accordion" id="accordionSidenav">     
-                            <div class="sidenav-menu-heading">{{ __('Main') }}</div>
-                            <a class="nav-link" href="/dashboard">
-                                <div class="nav-link-icon"><i data-feather="activity"></i></div>
-                                {{ __('Dashboards') }}
+                            <div class="sidenav-menu-heading">{{ __('Employee') }}</div>
+                            <a class="nav-link" href="employee">
+                                <div class="nav-link-icon"><i data-feather="users"></i></div>
+                                {{ __('Employee List') }}
                             </a>
-                            <div class="sidenav-menu-heading">{{ __('User') }}</div>
-                            <a class="nav-link" href="/report">
+                            <a class="nav-link" href="adminreport">
                                 <div class="nav-link-icon"><i data-feather="bar-chart-2"></i></div>
-                                {{ __('Report') }}
+                                {{ __('Attendance Report') }}
                             </a>
-                            <a class="nav-link" href="/profile">
+                            <div class="sidenav-menu-heading">{{ __('Profile') }}</div>
+                            <a class="nav-link" href="adminprofile">
                                 <div class="nav-link-icon"><i data-feather="user"></i></div>
                                 {{ __('Profile') }}
                             </a>
@@ -56,7 +56,7 @@
                 </nav>
             </div>
             <div id="layoutSidenav_content">
-                @yield('user_content')
+                @yield('admin_content')
                 <footer class="footer mt-auto footer-light">
                     <div class="container-fluid">
                         <div class="row">

@@ -4,7 +4,7 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mt-5">
                 <div class="mr-4 mb-3 mb-sm-0">
-                    <h1 class="mb-0">Welcome, User Fullname</h1>
+                    <h1 class="mb-0">{{ __('Welcome,') }} User Fullname</h1>
                     <div class="small">
                         <span id="day" class="font-weight-500 text-primary"></span>
                         &middot; <span id="date"></span> &middot; <span id="time"></span>
