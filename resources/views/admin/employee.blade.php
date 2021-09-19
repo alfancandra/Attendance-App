@@ -26,7 +26,7 @@
                         <table class="table table-bordered table-hover" id="report_table" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>{{ __('ID') }}</th>
+                                    <th>{{ __('No') }}</th>
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Fullname') }}</th>
                                     <th>{{ __('Registered Date') }}</th>
@@ -34,12 +34,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($datauser as $user)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->created_at }}</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
