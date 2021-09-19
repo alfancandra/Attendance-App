@@ -16,6 +16,9 @@ class RegisterController extends Controller {
 
     // Page Register
     public function index() {
+        if(Auth::check() && Auth::user()->role_id==0){
+            return redirect() -> route('usr.dashboard');
+        }
         return view('auth.register');
     }
 
@@ -98,14 +101,14 @@ class RegisterController extends Controller {
 
         // Jika user tidak ditemukan
         if(!$user) {
-            return redirect()->route('register.index')->with('warning','Token verifikasi tidak valid');
+            return redirect()->route('register')->with('warning','Token verifikasi tidak valid');
         }
 
         $user->email_verified_at = now();
         $user->email_verify_token = null;
         $user->update();
 
-        return redirect()->route('loginUser')
+        return redirect()->route('login')
                         ->with('success','Verifikasi berhasil silahkan login');
     }
 }

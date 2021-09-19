@@ -14,6 +14,9 @@ class LoginController extends Controller
 {
     // Page Login
     public function index() {
+        if(Auth::check() && Auth::user()->role_id==0){
+            return redirect() -> route('usr.dashboard');
+        }
         return view('auth.login');
     }
 
@@ -36,7 +39,7 @@ class LoginController extends Controller
             $akun = $request->only('email','password');
             if(Auth::attempt($akun)){
                 $AuthUser = Auth::user();
-                return redirect() -> route('dashboard');
+                return redirect() -> route('usr.dashboard');
             } else {
                 return redirect() -> route('login') -> with(['error' => 'Wrong email or password!']);
             }
@@ -46,5 +49,12 @@ class LoginController extends Controller
             // ]);
             return redirect() -> route('login') -> with(['error' => $e->errorInfo]);
         }
+    }
+
+    // Function Logout
+    public function logout(Request $request) {
+        $request->session()->flush();
+        Auth::logout();
+        return Redirect('login');
     }
 }

@@ -41,7 +41,7 @@
                                 {{ __('Profile') }}
                             </a>
                             <div class="sidenav-menu-heading">{{ __('Logout') }}</div>
-                            <a class="nav-link" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalLogout">
+                            <a class="nav-link" href="{{ route('logout') }}">
                                 <div class="nav-link-icon"><i data-feather="log-out"></i></div>
                                 {{ __('Logout') }}
                             </a>

@@ -3,8 +3,8 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use App\Http\Middleware\UserVerified;
-use App\Http\Middleware\AdminVerified;
+use App\Http\Middleware\UserKaryawan;
+use App\Http\Middleware\PreventBack;
 
 class Kernel extends HttpKernel
 {
@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'UserVerified' => UserVerified::class,
-        'AdminVerified' => AdminVerified::class
+        'UserKaryawan' => UserKaryawan::class,
+        'prevent-back' => PreventBack::class
     ];
 }

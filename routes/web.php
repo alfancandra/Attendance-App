@@ -33,20 +33,26 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::get('/forgotpassword', [ForgotPasswordController::class, 'index'])->name('forgotpassword');
-Route::get('/resetpassword', [ResetPasswordController::class, 'index'])->name('resetpassword');
 Route::get('/404', [Error404Controller::class, 'index'])->name('error404');
+Route::get("logout", [LoginController::class, 'logout']) -> name('logout');
 
 // Auth POST
 Route::post('register',[RegisterController::class,'store'])->name('post_register');
 Route::post('login',[LoginController::class,'login'])->name('post_login');
+Route::post('forgotpassword',[ForgotPasswordController::class, 'SendLink'])->name('forgotpasswordsendlink');
 
 // Verify Email
 Route::get('verify-email/{user_token}',[RegisterController::class,'verify'])->name('verifyLink');
+// Verify Reset Password
+Route::get('new-password/{userToken}/timestamp/{timestamp}', [ForgotPasswordController::class,'CheckLink']) -> name('CheckLink');
+Route::post('new-password/{userToken}/timestamp/{timestamp}', [ForgotPasswordController::class,'newpassword']) -> name('newpassword');
 
 // User
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/report', [UserReportController::class, 'index'])->name('report');
-Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
+Route::group(['middleware' => ["UserKaryawan", 'prevent-back'], 'as' => 'usr.'], function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/report', [UserReportController::class, 'index'])->name('report');
+    Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
+});
 
 // Admin
 Route::get('/employee', [AdminEmployeeController::class, 'index'])->name('employee');
