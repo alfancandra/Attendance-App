@@ -41,7 +41,7 @@
                                 {{ __('Profile') }}
                             </a>
                             <div class="sidenav-menu-heading">{{ __('Logout') }}</div>
-                            <a class="nav-link" href="{{ route('logout') }}">
+                            <a class="nav-link" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalLogout">
                                 <div class="nav-link-icon"><i data-feather="log-out"></i></div>
                                 {{ __('Logout') }}
                             </a>
@@ -83,7 +83,7 @@
                     <div class="modal-body">Are you sure want to logout?</div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-danger" type="button" href="/login">Yes</a>
+                        <a class="btn btn-danger" type="button" href="{{ route('logout') }}">Yes</a>
                     </div>
                 </div>
             </div>
