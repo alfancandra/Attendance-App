@@ -34,7 +34,6 @@
                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                     <a class="small" href="/forgotpassword">{{ __('Forgot Password?') }}</a>
                                     <button class="btn btn-primary lift" type="submit">{{ __('Login') }}</button>
-                                    <a class="btn btn-success lift" href="employee">{{ __('Login Admin') }}</a>
                                 </div>
                             </form>
                         </div>

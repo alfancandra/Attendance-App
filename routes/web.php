@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\AdminEmployeeController;
-use App\Http\Controllers\AdminProfileController;
-use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\Admin\AdminEmployeeController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminReportController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Error404Controller;
 
 
