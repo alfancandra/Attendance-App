@@ -19,7 +19,7 @@ class UserKaryawan
     public function handle(Request $request, Closure $next)
     {
         $auth = auth()->user();
-        if($auth){
+        if($auth && $auth->role_id==0){
             return $next($request);
         }else{
             return redirect()->route('login');

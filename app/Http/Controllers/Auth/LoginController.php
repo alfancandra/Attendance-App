@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,6 +17,8 @@ class LoginController extends Controller
     public function index() {
         if(Auth::check() && Auth::user()->role_id==0){
             return redirect() -> route('usr.dashboard');
+        }elseif(Auth::check() && Auth::user()->role_id==1){
+            return redirect() -> route('adm.employee');
         }
         return view('auth.login');
     }
@@ -39,7 +42,11 @@ class LoginController extends Controller
             $akun = $request->only('email','password');
             if(Auth::attempt($akun)){
                 $AuthUser = Auth::user();
-                return redirect() -> route('usr.dashboard');
+                if($AuthUser->role_id==0){
+                    return redirect() -> route('usr.dashboard');
+                }elseif($AuthUser->role_id==1){
+                    return redirect()->route('adm.employee');
+                }
             } else {
                 return redirect() -> route('login') -> with(['error' => 'Wrong email or password!']);
             }

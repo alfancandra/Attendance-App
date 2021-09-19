@@ -4,6 +4,7 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\UserKaryawan;
+use App\Http\Middleware\UserAdmin;
 use App\Http\Middleware\PreventBack;
 
 class Kernel extends HttpKernel
@@ -66,6 +67,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'UserKaryawan' => UserKaryawan::class,
-        'prevent-back' => PreventBack::class
+        'prevent-back' => PreventBack::class,
+        'UserAdmin' => UserAdmin::class
     ];
 }

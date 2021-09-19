@@ -83,7 +83,7 @@
                     <div class="modal-body">Are you sure want to logout?</div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-danger" type="button" href="/login">Yes</a>
+                        <a class="btn btn-danger" type="button" href="{{ route('logout') }}">Yes</a>
                     </div>
                 </div>
             </div>
