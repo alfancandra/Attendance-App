@@ -50,7 +50,7 @@
                     <div class="sidenav-footer">
                         <div class="sidenav-footer-content">
                             <div class="sidenav-footer-subtitle">{{ __('Logged in as:') }}</div>
-                            <div class="sidenav-footer-title">Valerie Luna</div>
+                            <div class="sidenav-footer-title">{{ Auth::user()->name }}</div>
                         </div>
                     </div>
                 </nav>

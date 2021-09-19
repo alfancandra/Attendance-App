@@ -34,7 +34,7 @@
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>
-                                    <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email address" disabled/>
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="{{ Auth::user()->email }}" disabled/>
                                     @if(session()->has('email'))<p class="text-danger">{{session('email')}}</p>@endif
                                 </div>
                             </div>

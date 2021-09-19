@@ -24,7 +24,8 @@
                             </h1>
                             <div class="justify-content-between">
                                 <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button>
-                                <button class="btn btn-danger lift p-3" onclick="stop()" id="stop">{{ __("Check Out") }}</button>
+                                <a class="btn btn-danger lift p-3" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalCheckout">
+                                {{ __("Check Out") }}</a>
                             </div>
                         </div>
                         <div class="col justify-content-center align-items-center">
@@ -34,6 +35,22 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modalCheckout" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="checkoutModalLabel">Checkout Confirmation</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure want to checkout?</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" onclick="stop()" id="stop">Yes</button>
+                    </div>
+                </div>
+            </div>
     </main>
 @endsection
 
@@ -71,7 +88,7 @@
 
     /* Stop */
     function stop() {
-        $('#btnSubmit').removeAttr("disabled");
+        $('#start').removeAttr("disabled");
         document.getElementById("text").innerHTML = "You've checked out!";
         clearInterval(x);
     }
