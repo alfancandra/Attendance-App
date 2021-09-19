@@ -40,6 +40,10 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->created_at }}</td>
+                                    <td>@if (!empty($user->email_verified_at))
+                                    <button class="btn btn-success btn-md">Accept</button>
+                                    <button class="btn btn-danger btn-md">Reject</button>
+                                    @endif</td>
                                 </tr>
                                 @endforeach
                             </tbody>

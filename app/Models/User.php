@@ -25,7 +25,8 @@ class User extends Authenticatable
         'active',
         'longitude',
         'langitude',
-        'image'
+        'image',
+        'role_id'
     ];
 
     /**
