@@ -22,10 +22,15 @@
                                 <span id="sec">00</span>
                                 <span hidden id="milisec">00</span>
                             </h1>
-                            <div class="justify-content-between">
-                                <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button>
-                                <a class="btn btn-danger lift p-3" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalCheckout">
-                                {{ __("Check Out") }}</a>
+                            <div class="justify-content-between">                
+                                <div>
+                                    <!-- <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button> -->
+                                    <a class="btn btn-primary lift p-3" href="{{ route('usr.checkin', Auth::user()->id) }}">{{ __('Check In') }}</a>
+                                    <!-- <button class="btn btn-danger lift p-3" onclick="stop()" id="stop">{{ __("Check Out") }}</button> -->
+                                    <a class="btn btn-danger lift p-3"  href="{{ route('usr.checkout', Auth::user()->id) }}" onclick="confirm_modal() data-toggle="modal" data-target="#modalCheckout">
+                                    {{ __("Check Out") }}</a>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="col justify-content-center align-items-center">
