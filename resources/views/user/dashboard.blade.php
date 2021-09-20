@@ -33,8 +33,8 @@
                                 
                             </div>
                         </div>
-                        <div class="col justify-content-center align-items-center">
-                            <img class="img-dashboard" src="{{ asset('assets') }}/assets/img/illustration.svg" alt="Illustration">
+                        <div class="col justify-content-center align-items-center d-none d-lg-block">
+                            <img class="img-dashboard px-xl-4" src="{{ asset('assets') }}/assets/img/illustration.svg" alt="Illustration">
                         </div>
                     </div>
                 </div>

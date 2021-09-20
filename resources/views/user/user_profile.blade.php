@@ -41,7 +41,7 @@
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Fullname') }}</label>
-                                    <input class="form-control" id="name" name="name" type="text" placeholder="Enter your fullname" required/>
+                                    <input class="form-control" id="name" name="name" type="text" maxlength="255" placeholder="Enter your fullname" required/>
                                     @if(session()->has('name'))<p class="text-danger">{{session('name')}}</p>@endif
                                 </div>
                             </div>
@@ -50,14 +50,14 @@
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="password">{{ __('Password') }}</label>
-                                    <input class="form-control" id="password" name="password" type="password" placeholder="Enter your password"/>
+                                    <input class="form-control" id="password" name="password" type="password" maxlength="16" placeholder="Enter your password"/>
                                     @if(session()->has('password'))<p class="text-danger">{{session('password')}}</p>@endif
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Confirm Password') }}</label>
-                                    <input class="form-control" id="password" name="password_confirmation" type="password" placeholder="Confirm your password" required/>
+                                    <input class="form-control" id="password" name="password_confirmation" type="password" maxlength="16" placeholder="Confirm your password" required/>
                                     @if(session()->has('name'))<p class="text-danger">{{session('name')}}</p>@endif
                                 </div>
                             </div>

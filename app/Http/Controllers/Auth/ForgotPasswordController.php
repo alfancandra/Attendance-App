@@ -28,7 +28,7 @@ class ForgotPasswordController extends Controller {
     {
         // Validasi Form
         $this->validate(request(), [
-            'email' => 'required|email'
+            'email' => 'required|email|max:255'
         ]);
 
         try{

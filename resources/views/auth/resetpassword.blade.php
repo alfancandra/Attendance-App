@@ -20,12 +20,12 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label class="small mb-1" for="password">{{ __('Password') }}</label>
-                                        <input class="form-control" id="password" name="password" type="password" placeholder="Enter password" />
+                                        <input class="form-control" id="password" name="password" type="password" maxlength="16" placeholder="Enter password" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" for="confirmPassword">{{ __('Confirm Password') }}</label>
-                                    <input class="form-control" id="confirmPassword" name="password_confirmation" type="password" placeholder="Confirm password" />
+                                    <input class="form-control" id="confirmPassword" name="password_confirmation" type="password" maxlength="16" placeholder="Confirm password" />
                                 </div>
                                 <div class="form-group mt-4 mb-0"><button class="btn btn-primary btn-block" type="submit">{{ __('Create Password') }}</button></div>
                             </form>

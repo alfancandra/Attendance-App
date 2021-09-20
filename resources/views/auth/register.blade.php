@@ -20,14 +20,14 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label class="small mb-1" for="name">{{ __('Full Name') }}</label>
-                                        <input class="form-control" id="name" name="name" type="text" placeholder="Enter your fullname" value="{{ old('name') }}" />
+                                        <input class="form-control" id="name" name="name" type="text" maxlength="255" placeholder="Enter your fullname" value="{{ old('name') }}" />
                                         @if ($errors->has('name'))<small class="text-danger" role="alert">{{ $errors->first('name') }}</small>@endif
                                     </div>
                                     @if(session()->has('emailTerpakai'))<p class="text-danger">{{session('emailTerpakai')}}</p>@endif
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>
-                                    <input class="form-control" id="email" name="email" type="email" aria-describedby="email" placeholder="Enter email address" value="{{ old('email') }}" />
+                                    <input class="form-control" id="email" name="email" type="email" maxlength="255" aria-describedby="email" placeholder="Enter email address" value="{{ old('email') }}" />
                                     @if ($errors->has('email'))<small class="text-danger" role="alert">{{ $errors->first('email') }}</small>@endif
                                 </div>
                                 <div class="form-group">

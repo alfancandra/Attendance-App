@@ -35,6 +35,15 @@
                                 <div class="nav-link-icon"><i data-feather="bar-chart-2"></i></div>
                                 {{ __('Attendance Report') }}
                             </a>
+                            <div class="sidenav-menu-heading">{{ __('Master Data') }}</div>
+                            <a class="nav-link" href="workinghours">
+                                <div class="nav-link-icon"><i data-feather="clock"></i></div>
+                                {{ __('Working Hours') }}
+                            </a>
+                            <a class="nav-link" href="office">
+                                <div class="nav-link-icon"><i data-feather="home"></i></div>
+                                {{ __('Office') }}
+                            </a>
                             <div class="sidenav-menu-heading">{{ __('Profile') }}</div>
                             <a class="nav-link" href="adminprofile">
                                 <div class="nav-link-icon"><i data-feather="user"></i></div>

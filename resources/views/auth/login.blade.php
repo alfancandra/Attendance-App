@@ -25,11 +25,11 @@
                                 @csrf
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>
-                                    <input class="form-control" name="email" id="email" type="email" placeholder="Enter email address" />
+                                    <input class="form-control" name="email" id="email" type="email" maxlength="255" placeholder="Enter email address" />
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" for="password">{{ __('Password') }}</label>
-                                    <input class="form-control" name="password" id="password" type="password" placeholder="Enter password" />
+                                    <input class="form-control" name="password" id="password" type="password" maxlength="16" placeholder="Enter password" />
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                     <a class="small" href="/forgotpassword">{{ __('Forgot Password?') }}</a>

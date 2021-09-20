@@ -39,9 +39,9 @@ class RegisterController extends Controller {
         // }
 
         $this->validate(request(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users|min:8|max:255',
+            'password' => 'required|confirmed|min:8|max:16',
         ]);
 
         // Store to DB

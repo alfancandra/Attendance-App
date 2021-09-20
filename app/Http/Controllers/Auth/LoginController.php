@@ -28,8 +28,8 @@ class LoginController extends Controller
     {
         // Validasi data
         $validator = Validator::make($request->all(),[
-            'email' => ['required'],
-            'password' => ['required']
+            'email' => ['required', 'max:255'],
+            'password' => ['required', 'max:16']
         ]);
 
         if($validator->fails()){
@@ -62,6 +62,6 @@ class LoginController extends Controller
     public function logout(Request $request) {
         $request->session()->flush();
         Auth::logout();
-        return Redirect('login');
+        return redirect()->route('login')->with(['success' => 'Success Logout!']);
     }
 }
