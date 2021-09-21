@@ -46,9 +46,11 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->created_at }}</td>
-                                    <td>@if (!empty($user->email_verified_at))
+                                    <td>@if (!empty($user->email_verified_at)&& $user->active==0)
                                     <a href="{{ route('adm.accemployee',$user->id) }}" class="btn btn-success btn-md">Accept</a>
                                     <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee',$user->id) }}" class="btn btn-danger btn-md">Reject</a>
+                                    @else
+                                    <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee',$user->id) }}" class="btn btn-danger btn-md">Hapus</a>
                                     @endif</td>
                                 </tr>
                                 @endforeach

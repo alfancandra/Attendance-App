@@ -10,9 +10,7 @@ use Mail;
 class AdminEmployeeController extends Controller {
     // Page Employee
     public function index() {
-        $datauser = User::where('role_id',0)
-        ->where('active',0)
-        ->whereNotNull('email_verified_at')->get();
+        $datauser = User::where('role_id',0)->get();
 
         return view('admin.employee',compact('datauser'))
         ->with('i',(request()->input('page',1)-1)*5);
@@ -40,4 +38,18 @@ class AdminEmployeeController extends Controller {
         });
         return redirect()->route('adm.employee')->with(['success' => 'Berhasil Reject']);
     }
+
+    public function destroy($id)
+    {
+        $datauser = User::find($id);
+        $datauser->delete();
+        $usermail = $datauser->email;
+        Mail::html("Hello $datauser->name , your account has been Delete by Admin", function ($message) use ($usermail) {
+            $message
+                ->to($usermail)
+                ->subject("Account Deleted");
+        });
+        return redirect()->route('adm.employee')->with(['success' => 'Berhasil Hapus']);
+    }
 }
+ 
