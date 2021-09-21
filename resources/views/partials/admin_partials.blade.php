@@ -40,7 +40,7 @@
                                 <div class="nav-link-icon"><i data-feather="clock"></i></div>
                                 {{ __('Working Hours') }}
                             </a>
-                            <a class="nav-link" href="office">
+                            <a class="nav-link" href="officeprofile">
                                 <div class="nav-link-icon"><i data-feather="home"></i></div>
                                 {{ __('Office') }}
                             </a>
