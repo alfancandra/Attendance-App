@@ -22,7 +22,7 @@ class AdminEmployeeController extends Controller {
         $datauser = User::where('id',$id)->first();
         $datauser->active = 1;
         $datauser->save();
-        return redirect()->route('adm.employee')->with(['success' => 'Berhasil Acc']);
+        return redirect()->route('adm.employee')->with(['success' => 'Success accept user!']);
     }
 
     // Reject Employee
@@ -31,12 +31,12 @@ class AdminEmployeeController extends Controller {
         $datauser = User::where('id',$id)->first();
         $datauser->delete();
         $usermail = $datauser->email;
-        Mail::html("Hello $datauser->name , your account has been rejected by Admin", function ($message) use ($usermail) {
+        Mail::html("Hello $datauser->name, your account has been rejected by Admin", function ($message) use ($usermail) {
             $message
                 ->to($usermail)
                 ->subject("Account Rejected");
         });
-        return redirect()->route('adm.employee')->with(['success' => 'Berhasil Reject']);
+        return redirect()->route('adm.employee')->with(['success' => 'Success reject user!']);
     }
 
     public function destroy($id)

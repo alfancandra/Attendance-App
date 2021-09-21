@@ -11,15 +11,15 @@
                                 {{ __('Employee List') }}
                             </h1>
                             <div class="page-header-subtitle">{{ __('Employee Attendance App') }}</div>
-                            @if ($message = Session::get('success'))
-                                <div class="alert alert-success alert-block mb-2">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>    
-                                    {{ $message }}
-                                </div>
-                            @endif
                         </div>
                     </div>
                 </div>
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
             </div>
         </header>
         <div class="container mt-n10">
@@ -36,6 +36,7 @@
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Fullname') }}</th>
                                     <th>{{ __('Registered Date') }}</th>
+                                    <th>{{ __('Status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
@@ -45,13 +46,23 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->name }}</td>
-                                    <td>{{ $user->created_at }}</td>
-                                    <td>@if (!empty($user->email_verified_at)&& $user->active==0)
-                                    <a href="{{ route('adm.accemployee',$user->id) }}" class="btn btn-success btn-md">Accept</a>
-                                    <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee',$user->id) }}" class="btn btn-danger btn-md">Reject</a>
-                                    @else
-                                    <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee',$user->id) }}" class="btn btn-danger btn-md">Hapus</a>
-                                    @endif</td>
+                                    <td>{{ $user->created_at->format('d F Y H:i:s') }}</td>
+                                    <td>
+                                        @if ($user->active==0)
+                                            <div class="badge badge-danger badge-pil">Not Activated</div>
+                                        @else
+                                            <div class="badge badge-primary badge-pil">Active</div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (!empty($user->email_verified_at)&& $user->active==0)
+                                            <a href="{{ route('adm.accemployee',$user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="check"></i></a>
+                                            <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee',$user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="x"></i></a>
+                                        @else
+                                            <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee',$user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="trash"></i></a>
+                                        @endif
+                                    </td>
+                                    
                                 </tr>
                                 @endforeach
                             </tbody>

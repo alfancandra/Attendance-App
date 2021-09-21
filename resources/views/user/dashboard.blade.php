@@ -3,11 +3,14 @@
     <main>
         <div class="container">
             <div class="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mt-5">
-                <div class="mr-4 mb-3 mb-sm-0">
-                    <h1 class="mb-0">{{ __('Welcome,') }} {{ Auth::user()->name }}</h1>
-                    <div class="small">
-                        <span id="day" class="font-weight-500 text-primary"></span>
-                        &middot; <span id="date"></span> &middot; <span id="time"></span>
+                <div class="row ml-1 mr-4 mb-3 mb-sm-0">
+                    <img class="img-photo-profile mb-1" src="{{ asset('assets') }}/assets/img/user.png" alt="User photo profile">
+                    <div class="ml-2">
+                        <h2 class="mb-0">{{ __('Welcome,') }} {{ Auth::user()->name }}</h2>
+                        <div class="small">
+                            <span id="day" class="font-weight-500 text-primary"></span>
+                            &middot; <span id="date"></span> &middot; <span id="time"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -24,9 +27,7 @@
                             </h1>
                             <div class="justify-content-between">                
                                 <div>
-                                    <!-- <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button> -->
                                     <a class="btn btn-primary lift p-3" href="{{ route('usr.checkin', Auth::user()->id) }}">{{ __('Check In') }}</a>
-                                    <!-- <button class="btn btn-danger lift p-3" onclick="stop()" id="stop">{{ __("Check Out") }}</button> -->
                                     <a class="btn btn-danger lift p-3"  href="{{ route('usr.checkout', Auth::user()->id) }}" onclick="confirm_modal() data-toggle="modal" data-target="#modalCheckout">
                                     {{ __("Check Out") }}</a>
                                 </div>

@@ -21104,6 +21104,12 @@ i-feather svg {
 	border-radius: 50%;
 }
 
+.img-photo-profile {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+}
+
 .cc-color-gmail {
 	color: #000000;
 }
