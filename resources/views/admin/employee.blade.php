@@ -11,6 +11,12 @@
                                 {{ __('Employee List') }}
                             </h1>
                             <div class="page-header-subtitle">{{ __('Employee Attendance App') }}</div>
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block mb-2">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                                    {{ $message }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -41,8 +47,8 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->created_at }}</td>
                                     <td>@if (!empty($user->email_verified_at))
-                                    <button class="btn btn-success btn-md">Accept</button>
-                                    <button class="btn btn-danger btn-md">Reject</button>
+                                    <a href="{{ route('adm.accemployee',$user->id) }}" class="btn btn-success btn-md">Accept</a>
+                                    <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee',$user->id) }}" class="btn btn-danger btn-md">Reject</a>
                                     @endif</td>
                                 </tr>
                                 @endforeach

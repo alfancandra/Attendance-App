@@ -10,7 +10,11 @@ use App\Http\Controllers\Admin\AdminOfficeController;
 
 // Admin
 Route::group(['middleware' => ["UserAdmin", 'prevent-back'], 'as' => 'adm.'], function() {
+    // Page Employee
     Route::get('/employee', [AdminEmployeeController::class, 'index'])->name('employee');
+    Route::get('/employee/acc/{id}',[AdminEmployeeController::class,'accept'])->name('accemployee');
+    Route::get('/employee/reject/{id}',[AdminEmployeeController::class,'reject'])->name('rejectemployee');
+
     Route::get('/adminreport', [AdminReportController::class, 'index'])->name('adminreport');
     Route::get('/adminprofile', [AdminProfileController::class, 'index'])->name('adminprofile');
     Route::get('/workinghours', [AdminWorkingHoursController::class, 'index'])->name('workinghours');

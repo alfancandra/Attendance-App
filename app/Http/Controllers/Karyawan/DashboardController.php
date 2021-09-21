@@ -17,10 +17,10 @@ class DashboardController extends Controller {
         $attendance = Attendance::join('users','users.id','=','attendances.user_id')
         ->whereDate('check_in',$now)->first();
 
-        $startTime = Carbon::parse($attendance->check_in);
-        $endTime = Carbon::now();
+        // $startTime = Carbon::parse($attendance->check_in);
+        // $endTime = Carbon::now();
 
-        $totalDuration =  $startTime->diff($endTime)->format('%S');
+        // $totalDuration =  $startTime->diff($endTime)->format('%S');
         // dd($totalDuration);
         // dd($attendance->check_in);
         return view('user.dashboard',compact('attendance'));
