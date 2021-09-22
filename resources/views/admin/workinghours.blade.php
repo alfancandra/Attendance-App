@@ -28,23 +28,39 @@
                         <table class="table table-bordered table-hover" id="report_table" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>{{ __('No') }}</th>
+                                    <th width="50">{{ __('No') }}</th>
                                     <th>{{ __('Day') }}</th>
                                     <th>{{ __('Check In Time') }}</th>
                                     <th>{{ __('Check Out Time') }}</th>
-                                    <th>{{ __('Status') }}</th>
-                                    <th>{{ __('Action') }}</th>
+                                    <th width="150" class="text-center">{{ __('Status') }}</th>
+                                    <th width="200" class="text-center">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @foreach ($datahours as $hours)
+                                    <tr>
+                                        <td>{{ ++$i }}</td>
+                                        <td>{{ $hours->name }}</td>
+                                        <td>{{ $hours->check_in }}</td>
+                                        <td>{{ $hours->check_out }}</td>
+                                        <td class="text-center">
+                                            {{-- 0 = Deactive --}}
+                                            @if ($hours->active==0)
+                                                <div class="badge badge-danger badge-pil text-sm py-2 px-2">Deactive</div>
+                                            @else
+                                                <div class="badge badge-primary badge-pil text-sm py-2 px-2">Active</div>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            {{-- 0 = Deactive --}}
+                                            @if ($hours->active == 0)
+                                                <a onclick="return confirm('Are you sure to activate this working hour?')" href="{{ route('adm.activatehours', $hours->id) }}" class="btn btn-sm btn-active text-sm"><i class="fab fa fa-check mr-1" aria-hidden="true"></i>Activate</a>
+                                            @else
+                                                <a onclick="return confirm('Are you sure to deactivate this working hour?')" href="{{ route('adm.deactivatehours', $hours->id) }}" class="btn btn-sm btn-deactive text-sm"><i class="fab fa fa-times mr-1" aria-hidden="true"></i>Deactivate</a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

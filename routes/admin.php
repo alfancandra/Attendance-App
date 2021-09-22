@@ -19,6 +19,8 @@ Route::group(['middleware' => ["UserAdmin", 'prevent-back'], 'as' => 'adm.'], fu
     Route::get('/adminreport', [AdminReportController::class, 'index'])->name('adminreport');
     Route::get('/adminprofile', [AdminProfileController::class, 'index'])->name('adminprofile');
     Route::get('/workinghours', [AdminWorkingHoursController::class, 'index'])->name('workinghours');
+    Route::get('/workinghours/activate/{id}',[AdminWorkingHoursController::class,'activate'])->name('activatehours');
+    Route::get('/workinghours/deactivate/{id}',[AdminWorkingHoursController::class,'deactivate'])->name('deactivatehours');
     Route::get('/addworkinghours', [AdminAddWorkingHoursController::class, 'index'])->name('addworkinghours');
     Route::get('/officeprofile', [AdminOfficeController::class, 'index'])->name('officeprofile');
 });

@@ -42,28 +42,27 @@
                             </thead>
                             <tbody>
                                 @foreach ($datauser as $user)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->created_at->format('d F Y H:i:s') }}</td>
-                                    <td>
-                                        @if ($user->active==0)
-                                            <div class="badge badge-danger badge-pil">Not Activated</div>
-                                        @else
-                                            <div class="badge badge-primary badge-pil">Active</div>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if (!empty($user->email_verified_at)&& $user->active==0)
-                                            <a href="{{ route('adm.accemployee',$user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="check"></i></a>
-                                            <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee',$user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="x"></i></a>
-                                        @else
-                                            <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee',$user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="trash"></i></a>
-                                        @endif
-                                    </td>
-                                    
-                                </tr>
+                                    <tr>
+                                        <td>{{ ++$i }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->created_at->format('d F Y H:i:s') }}</td>
+                                        <td>
+                                            @if ($user->active==0)
+                                                <div class="badge badge-danger badge-pil">Not Activated</div>
+                                            @else
+                                                <div class="badge badge-primary badge-pil">Active</div>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($user->email_verified_at) && $user->active == 0)
+                                                <a href="{{ route('adm.accemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="check"></i></a>
+                                                <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="x"></i></a>
+                                            @else
+                                                <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="trash"></i></a>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
