@@ -5,22 +5,29 @@ use App\Http\Controllers\Admin\AdminEmployeeController;
 use App\Http\Controllers\Admin\AdminReportController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminWorkingHoursController;
-use App\Http\Controllers\Admin\AdminAddWorkingHoursController;
 use App\Http\Controllers\Admin\AdminOfficeController;
 
 // Admin
 Route::group(['middleware' => ["UserAdmin", 'prevent-back'], 'as' => 'adm.'], function() {
-    // Page Employee
+    // Employee Page
     Route::get('/employee', [AdminEmployeeController::class, 'index'])->name('employee');
     Route::get('/employee/acc/{id}',[AdminEmployeeController::class,'accept'])->name('accemployee');
     Route::get('/employee/reject/{id}',[AdminEmployeeController::class,'reject'])->name('rejectemployee');
     Route::get('/employee/destroy/{id}',[AdminEmployeeController::class,'destroy'])->name('destroyemployee');
 
+    // Report Page
     Route::get('/adminreport', [AdminReportController::class, 'index'])->name('adminreport');
+
+    // Admin Profile Page
     Route::get('/adminprofile', [AdminProfileController::class, 'index'])->name('adminprofile');
+
+    // Working Hours Page
     Route::get('/workinghours', [AdminWorkingHoursController::class, 'index'])->name('workinghours');
     Route::get('/workinghours/activate/{id}',[AdminWorkingHoursController::class,'activate'])->name('activatehours');
     Route::get('/workinghours/deactivate/{id}',[AdminWorkingHoursController::class,'deactivate'])->name('deactivatehours');
-    Route::get('/addworkinghours', [AdminAddWorkingHoursController::class, 'index'])->name('addworkinghours');
+    Route::get('/addworkinghours', [AdminWorkingHoursController::class, 'addworkinghours'])->name('addworkinghours');
+    Route::post('addworkinghours',[AdminWorkingHoursController::class, 'store'])->name('post_hours');
+
+    // Office Profile Page
     Route::get('/officeprofile', [AdminOfficeController::class, 'index'])->name('officeprofile');
 });

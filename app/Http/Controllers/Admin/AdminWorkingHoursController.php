@@ -29,4 +29,32 @@ class AdminWorkingHoursController extends Controller {
         $datahours->save();
         return redirect()->route('adm.workinghours')->with(['success' => 'Success deactivate working hour!']);
     }
+
+    public function addworkinghours() {
+        return view('admin.addworkinghours');
+    }
+
+    public function store(Request $request) {
+        $this->validate(request(), [
+            'name' => 'required|max:9',
+            'check_in' => 'required',
+            'check_out' => 'required',
+        ]);
+
+        try {
+            $workinghour = WorkingHour::create([
+                'name' => $request->name,
+                'check_in' => $request->check_in,
+                'check_out' => $request->check_out,
+                'active' => 1
+            ]);
+            $response = [
+                'message' => 'User Created',
+                'data' => $workinghour
+            ];
+            return redirect()->route('adm.workinghours')->with(['success' => 'Success create working hour!']);
+        } catch (QueryException $e) {
+            return redirect()->route('adm.workinghours')->with(['error' => $e->errorInfo]);
+        }
+    }
 }

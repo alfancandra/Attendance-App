@@ -7,5 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkingHour extends Model
 {
-    use HasFactory;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'check_in',
+        'check_out',
+        'active'
+    ];
 }

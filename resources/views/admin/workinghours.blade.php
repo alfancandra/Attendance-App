@@ -54,9 +54,9 @@
                                         <td class="text-center">
                                             {{-- 0 = Deactive --}}
                                             @if ($hours->active == 0)
-                                                <a onclick="return confirm('Are you sure to activate this working hour?')" href="{{ route('adm.activatehours', $hours->id) }}" class="btn btn-sm btn-active text-sm"><i class="fab fa fa-check mr-1" aria-hidden="true"></i>Activate</a>
+                                                <a class="btn btn-sm btn-active text-sm" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalActivate"><i class="fab fa fa-check mr-1" aria-hidden="true"></i>Activate</a>
                                             @else
-                                                <a onclick="return confirm('Are you sure to deactivate this working hour?')" href="{{ route('adm.deactivatehours', $hours->id) }}" class="btn btn-sm btn-deactive text-sm"><i class="fab fa fa-times mr-1" aria-hidden="true"></i>Deactivate</a>
+                                                <a class="btn btn-sm btn-deactive text-sm" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalDeactivate"><i class="fab fa fa-times mr-1" aria-hidden="true"></i>Deactivate</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -69,3 +69,39 @@
         </div>
     </main>
 @endsection
+
+<div class="modal fade" id="modalActivate" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="activateModalLabel">Activate {{ $datahours[0]->name }} Working Hours</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure want to activate {{ $datahours[0]->name }} working hour?</div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" type="button" href="{{ route('adm.activatehours', $datahours[0]->id) }}">Yes</a>
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDeactivate" tabindex="-1" role="dialog" aria-labelledby="deactivateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deactivateModalLabel">Deactivate {{ $datahours[0]->name }} Working Hours</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure want to deactivate {{ $datahours[0]->name }} working hour?</div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" type="button" href="{{ route('adm.deactivatehours', $datahours[0]->id) }}">Yes</a>
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
