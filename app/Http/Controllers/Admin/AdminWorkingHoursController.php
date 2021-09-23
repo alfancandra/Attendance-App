@@ -57,4 +57,41 @@ class AdminWorkingHoursController extends Controller {
             return redirect()->route('adm.workinghours')->with(['error' => $e->errorInfo]);
         }
     }
+
+    public function edit($id) {
+        $dataworkinghours = WorkingHour::where('id', $id)->first();
+
+        return view('admin.editworkinghours',compact('dataworkinghours'))
+        ->with('i',(request()->input('page',1)-1)*5);
+    }
+
+    public function update(Request $request, $id) {
+        $this->validate(request(), [
+            'name' => 'required|max:9',
+            'check_in' => 'required',
+            'check_out' => 'required',
+        ]);
+
+        try {
+            $workinghour = WorkingHour::where('id', $id) -> first();
+            $workinghour -> name = $request->name;
+            $workinghour -> check_in = $request->check_in;
+            $workinghour -> check_out = $request->check_out;
+            $workinghour->update();
+
+            $response = [
+                'message' => 'Working Hour Updated',
+                'data' => $workinghour
+            ];
+            return redirect()->route('adm.workinghours')->with(['success' => 'Success update working hour!']);
+        } catch (QueryException $e) {
+            return redirect()->route('adm.workinghours')->with(['error' => $e->errorInfo]);
+        }
+    }
+
+    public function destroy($id) {
+        $datauser = WorkingHour::find($id);
+        $datauser->delete();
+        return redirect()->route('adm.workinghours')->with(['success' => 'Success delete working hour!']);
+    }
 }

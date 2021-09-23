@@ -24,6 +24,18 @@
                     </a>
                 </div>
                 <div class="card-body">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block mb-2">
+                            <button type="button" class="close" data-dismiss="alert">×</button>    
+                            {{ $message }}
+                        </div>
+                    @endif
+                    @if ($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block mb-2">
+                            <button type="button" class="close" data-dismiss="alert">×</button>    
+                            {{ $message }}
+                        </div>
+                    @endif
                     <div class="datatable">
                         <table class="table table-bordered table-hover" id="report_table" width="100%" cellspacing="0">
                             <thead>
@@ -33,7 +45,7 @@
                                     <th>{{ __('Check In Time') }}</th>
                                     <th>{{ __('Check Out Time') }}</th>
                                     <th width="150" class="text-center">{{ __('Status') }}</th>
-                                    <th width="200" class="text-center">{{ __('Action') }}</th>
+                                    <th width="150" class="text-center">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,20 +56,20 @@
                                         <td>{{ $hours->check_in }}</td>
                                         <td>{{ $hours->check_out }}</td>
                                         <td class="text-center">
-                                            {{-- 0 = Deactive --}}
                                             @if ($hours->active==0)
-                                                <div class="badge badge-danger badge-pil text-sm py-2 px-2">Deactive</div>
-                                            @else
-                                                <div class="badge badge-primary badge-pil text-sm py-2 px-2">Active</div>
+                                                <div class="badge badge-danger badge-pil">Deactive</div>
+                                            @elseif ($hours->active==1)
+                                                <div class="badge badge-primary badge-pil">Active</div>
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            {{-- 0 = Deactive --}}
                                             @if ($hours->active == 0)
-                                                <a class="btn btn-sm btn-active text-sm" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalActivate"><i class="fab fa fa-check mr-1" aria-hidden="true"></i>Activate</a>
-                                            @else
-                                                <a class="btn btn-sm btn-deactive text-sm" href="onclick="confirm_modal() data-toggle="modal" data-target="#modalDeactivate"><i class="fab fa fa-times mr-1" aria-hidden="true"></i>Deactivate</a>
+                                                <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to activate this working hour?')" href="{{ route('adm.activatehours', $hours->id) }}"><i class="text-dark" data-feather="check"></i></a>
+                                            @elseif ($hours->active == 1)
+                                                <a onclick="return confirm('Are you sure want to deactivate this working hour?')" href="{{ route('adm.deactivatehours', $hours->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="x"></i></a>
                                             @endif
+                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.editworkinghours', $hours->id) }}"><i class="text-dark" data-feather="edit"></i></a>
+                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to delete this working hour?')" href="{{ route('adm.destroyworkinghours', $hours->id) }}"><i class="text-dark" data-feather="trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -69,39 +81,3 @@
         </div>
     </main>
 @endsection
-
-<div class="modal fade" id="modalActivate" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="activateModalLabel">Activate {{ $datahours[0]->name }} Working Hours</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Are you sure want to activate {{ $datahours[0]->name }} working hour?</div>
-            <div class="modal-footer">
-                <a class="btn btn-primary" type="button" href="{{ route('adm.activatehours', $datahours[0]->id) }}">Yes</a>
-                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalDeactivate" tabindex="-1" role="dialog" aria-labelledby="deactivateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deactivateModalLabel">Deactivate {{ $datahours[0]->name }} Working Hours</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Are you sure want to deactivate {{ $datahours[0]->name }} working hour?</div>
-            <div class="modal-footer">
-                <a class="btn btn-primary" type="button" href="{{ route('adm.deactivatehours', $datahours[0]->id) }}">Yes</a>
-                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>

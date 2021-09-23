@@ -8,7 +8,7 @@
                         <div class="col-auto mt-4">
                             <h1 class="page-header-title">
                                 <div class="page-header-icon"><i data-feather="clock"></i></div>
-                                {{ __('Add Working Hours') }}
+                                {{ __('Edit Working Hours') }}
                             </h1>
                             <div class="page-header-subtitle">{{ __('Employee Attendance App') }}</div>
                         </div>
@@ -19,27 +19,27 @@
         <div class="container mt-n10">
             <div class="card mb-4">
                 <div class="card-body">
-                    <form autocomplete="off" method="POST" action="{{ route('adm.post_hours') }}"">
+                    <form autocomplete="off" method="POST" action="{{ route('adm.updateworkinghours', $dataworkinghours->id) }}">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Day') }}</label>
-                                    <input class="form-control" id="name" name="name" type="text" maxlength="9" placeholder="Enter day" required/>
+                                    <input class="form-control" id="name" name="name" type="text" maxlength="9" placeholder="Enter day" required value="{{ $dataworkinghours->name }}"/>
                                     @if(session()->has('name'))<p class="text-danger">{{session('name')}}</p>@endif
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="check_in">{{ __('Check In Time') }}</label>
-                                    <input class="form-control" id="check_in" name="check_in" type="time" placeholder="Enter check in time" required/>
+                                    <input class="form-control" id="check_in" name="check_in" type="time" placeholder="Enter check in time" required value="{{ $dataworkinghours->check_in }}"/>
                                     @if(session()->has('check_in'))<p class="text-danger">{{session('check_in')}}</p>@endif
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="check_out">{{ __('Check Out Time') }}</label>
-                                    <input class="form-control" id="check_out" name="check_out" type="time" placeholder="Enter check out time" required/>
+                                    <input class="form-control" id="check_out" name="check_out" type="time" placeholder="Enter check out time" required value="{{ $dataworkinghours->check_out }}"/>
                                     @if(session()->has('check_out'))<p class="text-danger">{{session('check_out')}}</p>@endif
                                 </div>
                             </div>

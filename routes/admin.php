@@ -27,7 +27,11 @@ Route::group(['middleware' => ["UserAdmin", 'prevent-back'], 'as' => 'adm.'], fu
     Route::get('/workinghours/deactivate/{id}',[AdminWorkingHoursController::class,'deactivate'])->name('deactivatehours');
     Route::get('/addworkinghours', [AdminWorkingHoursController::class, 'addworkinghours'])->name('addworkinghours');
     Route::post('addworkinghours',[AdminWorkingHoursController::class, 'store'])->name('post_hours');
+    Route::get('/workinghours/destroy/{id}',[AdminWorkingHoursController::class,'destroy'])->name('destroyworkinghours');
+
+    Route::get('/workinghours/edit/{id}',[AdminWorkingHoursController::class,'edit'])->name('editworkinghours');
+    Route::post('/workinghours/edit/{id}',[AdminWorkingHoursController::class,'update'])->name('updateworkinghours');
 
     // Office Profile Page
-    Route::get('/officeprofile', [AdminOfficeController::class, 'index'])->name('officeprofile');
+    Route::get('/officeprofile', [AdminOfficeController::class, 'update'])->name('officeprofile');
 });
