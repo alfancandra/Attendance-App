@@ -18,7 +18,11 @@
                 <div class="card-body p-5">
                     <div class="row align-items-center justify-content-between">
                         <div class="col text-center">
+                            @if($attendance)
+                            <h2 id="text" class="text-primary">Enjoy Your Work!</h2>
+                            @else
                             <h2 id="text" class="text-primary">You're not check in yet!</h2>
+                            @endif
                             <h1 class="text-xl py-4">
                                 <span id="hour">00</span> :
                                 <span id="min">00</span> :
@@ -27,15 +31,57 @@
                             </h1>
                             <div class="justify-content-between">                
                                 <div>
-                                    <a class="btn btn-primary lift p-3" href="{{ route('usr.checkin', Auth::user()->id) }}">{{ __('Check In') }}</a>
-                                    <a class="btn btn-danger lift p-3"  href="{{ route('usr.checkout', Auth::user()->id) }}" onclick="confirm_modal() data-toggle="modal" data-target="#modalCheckout">
+
+                            {{-- If Attendance is Null, just init variable timer --}}
+                            @if(empty($attendance))
+                                @php
+                                    $checkoutTime='00:00:00';
+                                    $waktu='00:00:00'
+                                @endphp
+                            {{-- If Attendance checkout row is null, 
+                                init variable checkin from database & Init variable checkout to null --}}
+                            @elseif(empty($attendance->check_out))
+                                @php
+                                    $waktu=$attendance->check_in;
+                                    $checkoutTime='00:00:00';
+                                @endphp
+                            <script type="text/javascript">
+                                checkin()
+                            </script>
+                            @endif
+
+                            {{-- If Attendance checkout row is not null, 
+                                init variable checkin from database & Init variable checkout from database --}}
+                            @if(!empty($attendance->check_out))
+                                @php
+                                    $waktu=$attendance->check_in;
+                                    $checkoutTime=$attendance->check_out;
+                                @endphp
+                            <script type="text/javascript">
+                                checkout()
+                            </script>
+                            @endif
+
+                            <div class="justify-content-between">
+                                {{-- <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button> --}}
+                                @if(empty($attendance))
+                                <a class="btn btn-primary lift p-3" id="start" href="{{ route('usr.checkin',Auth::user()->id) }}">{{ __('Check In') }}</a>
+                                <a class="btn btn-danger lift p-3 disabled" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
                                     {{ __("Check Out") }}</a>
-                                </div>
+                                @elseif(!empty($attendance->check_out))
+                                <a class="btn btn-primary lift p-3 disabled" id="start" href="{{ route('usr.checkin',Auth::user()->id) }}">{{ __('Check In') }}</a>
+                                <a class="btn btn-danger lift p-3 disabled" data-toggle="modal" data-target="#modalCheckout">
+                                    {{ __("Check Out") }}</a>
+                                @else
+                                <a class="btn btn-primary lift p-3 disabled" id="start">{{ __('Check In') }}</a>
+                                <a class="btn btn-danger lift p-3" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
+                                    {{ __("Check Out") }}</a>
+                                @endif
                                 
                             </div>
                         </div>
-                        <div class="col justify-content-center align-items-center d-none d-lg-block">
-                            <img class="img-dashboard px-xl-4" src="{{ asset('assets') }}/assets/img/illustration.svg" alt="Illustration">
+                        <div class="col justify-content-center align-items-center">
+                            <img class="img-dashboard" src="{{ asset('assets') }}/assets/img/illustration.svg" alt="Illustration">
                         </div>
                     </div>
                 </div>
@@ -53,14 +99,15 @@
                     <div class="modal-body">Are you sure want to checkout?</div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal" onclick="stop()" id="stop">Yes</button>
+                        <a href="{{ route('usr.checkout',Auth::user()->id) }}" class="btn btn-danger" id="stop">Yes</a>
                     </div>
                 </div>
             </div>
     </main>
 @endsection
-
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+    
     function clockTick() {
         var d = new Date();
         var day = d.getDay();
@@ -85,13 +132,26 @@
     // Stopwatch
     var x;
 
-    /* Start */
-    function start() {
-        $("#start").attr("disabled", true);
-        document.getElementById("text").innerHTML = "Enjoy your work!";
+    function checkin(){
         x = setInterval(timer, 10);
+        $('#start').attr("disabled",true);
     }
 
+    function checkout(){
+        document.getElementById("text").innerHTML = "You've checked out!";
+        var d = new Date();
+        var hh = {{ date('H', strtotime($waktu)) }};
+        var mm = {{ date('i', strtotime($waktu)) }};
+        var ss = {{ date('i', strtotime($waktu)) }};
+        var hournow = {{ date('H', strtotime($checkoutTime)) }};
+        var minutenow = {{ date('i', strtotime($checkoutTime)) }};
+        var secondnow = d.getSeconds();
+        var diff = hournow - hh;
+        var diffminute = minutenow - mm;
+        document.getElementById("min").innerHTML = convert_positive(diffminute);
+        document.getElementById("hour").innerHTML = convert_positive(diff);
+    }
+    
     /* Stop */
     function stop() {
         $('#start').removeAttr("disabled");
@@ -99,42 +159,32 @@
         clearInterval(x);
     }
 
-    /* holds incrementing value */
-    var milisec = 0;
-    var sec = 0;
-    var min = 0;
-    var hour = 0;
-
-    /* Contains and outputs returned value of  function checkTime */
-    var miliSecOut = 0;
-    var secOut = 0;
-    var minOut = 0;
-    var hourOut = 0;
+    function convert_positive(a) {
+        // Check the number is negative
+        if (a < 0) {
+            // Multiply number with -1
+            // to make it positive
+            a = a * -1;
+        }
+        // Return the positive number
+        return a;
+    }
 
     /* Output variable End */
     function timer() {
     /* Main Timer */
-        miliSecOut = checkTime(milisec);
-        secOut = checkTime(sec);
-        minOut = checkTime(min);
-        hourOut = checkTime(hour);
-        milisec = ++milisec;
-        if (milisec === 100) {
-            milisec = 0;
-            sec = ++sec;
-        }
-        if (sec == 60) {
-            min = ++min;
-            sec = 0;
-        }
-        if (min == 60) {
-            min = 0;
-            hour = ++hour;
-        }
-        document.getElementById("milisec").innerHTML = miliSecOut;
-        document.getElementById("sec").innerHTML = secOut;
-        document.getElementById("min").innerHTML = minOut;
-        document.getElementById("hour").innerHTML = hourOut;
+        var d = new Date();
+        var hh = {{ date('H', strtotime($waktu)) }};
+        var mm = {{ date('i', strtotime($waktu)) }};
+        var ss = {{ date('i', strtotime($waktu)) }};
+        var hournow = d.getHours();
+        var minutenow = d.getMinutes();
+        var secondnow = d.getSeconds();
+        var diff = hournow - hh;
+        var diffminute = minutenow - mm;
+        document.getElementById("sec").innerHTML = secondnow;
+        document.getElementById("min").innerHTML = convert_positive(diffminute);
+        document.getElementById("hour").innerHTML = convert_positive(diff);
     }
 
 
@@ -145,4 +195,5 @@
         }
         return i;
     }
+    
 </script>
