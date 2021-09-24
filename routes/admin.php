@@ -33,5 +33,6 @@ Route::group(['middleware' => ["UserAdmin", 'prevent-back'], 'as' => 'adm.'], fu
     Route::post('/workinghours/edit/{id}',[AdminWorkingHoursController::class,'update'])->name('updateworkinghours');
 
     // Office Profile Page
-    Route::get('/officeprofile', [AdminOfficeController::class, 'update'])->name('officeprofile');
+    Route::get('/officeprofile', [AdminOfficeController::class, 'edit'])->name('officeprofile');
+    Route::post('/officeprofile/edit/{id}', [AdminOfficeController::class, 'update'])->name('updateofficeprofile');
 });

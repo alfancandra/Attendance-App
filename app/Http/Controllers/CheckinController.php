@@ -30,6 +30,7 @@ class CheckinController extends Controller
       // ])->where(['check_out' => null]);
       // $attendance = Attendance::where('check_out', null)->update('check_out',(null => Carbon::now()) );
       Attendance::where('check_out', null)
+      ->where('user_id',$id)
       ->update(['check_out' => Carbon::now()]);
       return redirect()->route('usr.dashboard');
     }
