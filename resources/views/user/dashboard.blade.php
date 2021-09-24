@@ -39,35 +39,37 @@
                             <div class="justify-content-between">                
                                 <div>
 
-                            {{-- If Attendance is Null, just init variable timer --}}
-                            @if(empty($attendance))
-                                @php
-                                    $checkoutTime='00:00:00';
-                                    $waktu='00:00:00'
-                                @endphp
-                            {{-- If Attendance checkout row is null, 
-                                init variable checkin from database & Init variable checkout to null --}}
-                            @elseif(empty($attendance->check_out))
-                                @php
-                                    $waktu=$attendance->check_in;
-                                    $checkoutTime='00:00:00';
-                                @endphp
-                            <script type="text/javascript">
-                                checkin()
-                            </script>
-                            @endif
+                                    {{-- If Attendance is Null, just init variable timer --}}
+                                    @if(empty($attendance))
+                                        @php
+                                            $checkoutTime='00:00:00';
+                                            $waktu='00:00:00'
+                                        @endphp
+                                    {{-- If Attendance checkout row is null, 
+                                        init variable checkin from database & Init variable checkout to null --}}
+                                    @elseif(empty($attendance->check_out))
+                                        @php
+                                            $waktu=$attendance->check_in;
+                                            $checkoutTime='00:00:00';
+                                        @endphp
+                                        <script type="text/javascript">
+                                            checkin()
+                                        </script>
+                                    @endif
 
-                            {{-- If Attendance checkout row is not null, 
-                                init variable checkin from database & Init variable checkout from database --}}
-                            @if(!empty($attendance->check_out))
-                                @php
-                                    $waktu=$attendance->check_in;
-                                    $checkoutTime=$attendance->check_out;
-                                @endphp
-                            <script type="text/javascript">
-                                checkout()
-                            </script>
-                            @endif
+                                    {{-- If Attendance checkout row is not null, 
+                                        init variable checkin from database & Init variable checkout from database --}}
+                                    @if(!empty($attendance->check_out))
+                                        @php
+                                            $waktu=$attendance->check_in;
+                                            $checkoutTime=$attendance->check_out;
+                                        @endphp
+                                    <script type="text/javascript">
+                                        checkout()
+                                    </script>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="justify-content-between">
                                 {{-- <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button> --}}
@@ -87,7 +89,7 @@
                                 
                             </div>
                         </div>
-                        <div class="col justify-content-center align-items-center">
+                        <div class="col justify-content-center align-items-center d-none d-lg-block">
                             <img class="img-dashboard" src="{{ asset('assets') }}/assets/img/illustration.svg" alt="Illustration">
                         </div>
                     </div>
