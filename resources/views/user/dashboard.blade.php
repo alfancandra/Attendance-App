@@ -1,10 +1,17 @@
 @extends('partials.user_partials')
 @section('user_content')
+        @php    
+        if(!empty(Auth::user()->image)){
+            $photo = '/img/photo/'.Auth::user()->image;
+        }else{
+            $photo = '/assets/assets/img/user.png';
+        }
+        @endphp
     <main>
         <div class="container">
             <div class="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mt-5">
                 <div class="row ml-1 mr-4 mb-3 mb-sm-0">
-                    <img class="img-photo-profile mb-1" src="{{ asset('assets') }}/assets/img/user.png" alt="User photo profile">
+                    <img class="img-photo-profile mb-1" src="{{ asset($photo) }}" alt="User photo profile">
                     <div class="ml-2">
                         <h2 class="mb-0">{{ __('Welcome,') }} {{ Auth::user()->name }}</h2>
                         <div class="small">
