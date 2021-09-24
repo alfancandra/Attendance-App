@@ -19,6 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->datetime('check_in');
             $table->datetime('check_out')->nullable();
             $table->integer('absent');
+            $table->integer('working_hour_id');
             $table->timestamps();
         });
     }

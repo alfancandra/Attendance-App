@@ -42,10 +42,13 @@ class LoginController extends Controller
             $akun = $request->only('email','password');
             if(Auth::attempt($akun)){
                 $AuthUser = Auth::user();
-                if($AuthUser->role_id==0){
+                if($AuthUser->role_id==0 && !empty($AuthUser->email_verified_at) && $AuthUser->active==1){
                     return redirect() -> route('usr.dashboard');
-                }elseif($AuthUser->role_id==1){
+                }elseif($AuthUser->role_id==1 && !empty($AuthUser->email_verified_at) && $AuthUser->active==1){
                     return redirect()->route('adm.employee');
+                }else{
+                    Auth::logout();
+                    return redirect() -> route('login') -> with(['error' => 'account not verified by Admin']);
                 }
             } else {
                 return redirect() -> route('login') -> with(['error' => 'Wrong email or password!']);
