@@ -48,7 +48,7 @@ class LoginController extends Controller
                     return redirect()->route('adm.employee');
                 }else{
                     Auth::logout();
-                    return redirect() -> route('login') -> with(['error' => 'account not verified by Admin']);
+                    return redirect() -> route('login') -> with(['error' => 'Account not verified by Admin']);
                 }
             } else {
                 return redirect() -> route('login') -> with(['error' => 'Wrong email or password!']);

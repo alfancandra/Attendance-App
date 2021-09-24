@@ -49,7 +49,7 @@ class AdminEmployeeController extends Controller {
                 ->to($usermail)
                 ->subject("Account Deleted");
         });
-        return redirect()->route('adm.employee')->with(['success' => 'Berhasil Hapus']);
+        return redirect()->route('adm.employee')->with(['success' => 'Successfully Deleted!']);
     }
 }
  

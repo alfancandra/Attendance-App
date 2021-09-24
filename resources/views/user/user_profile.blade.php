@@ -55,14 +55,21 @@
                         </div>
                         <h1>Create New Pasword</h1>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="password">{{ __('Password') }}</label>
+                                    <label class="small mb-1" for="current_password">{{ __('Current Password') }}</label>
+                                    <input class="form-control" id="current_password" name="current_password" type="password" maxlength="16" placeholder="Enter current password"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="password">{{ __('New Password') }}</label>
                                     <input class="form-control" id="password" name="password" type="password" maxlength="16" placeholder="Enter your password"/>
                                     
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Confirm Password') }}</label>
                                     <input class="form-control" id="password" name="password_confirmation" type="password" maxlength="16" placeholder="Confirm your password"/>

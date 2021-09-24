@@ -102,7 +102,7 @@ class RegisterController extends Controller {
 
         // Jika user tidak ditemukan
         if(!$user) {
-            return redirect()->route('register')->with('warning','Token verifikasi tidak valid');
+            return redirect()->route('register')->with('error','Invalid verification token!');
         }
 
         $user->email_verified_at = now();
@@ -110,6 +110,6 @@ class RegisterController extends Controller {
         $user->update();
 
         return redirect()->route('login')
-                        ->with('success','Verifikasi berhasil silahkan login');
+                        ->with('success','Verification is successful! Please log in.');
     }
 }

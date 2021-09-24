@@ -35,7 +35,7 @@ class ForgotPasswordController extends Controller {
             $user = User::where('email',$request->email)->first();
 
             if (!$user) {
-                return redirect() -> back() -> with('error', "Tidak dapat menemukan user tersebut!");
+                return redirect() -> back() -> with('error', "Cannot find the user!");
             }
 
             $usermail = $user->email;
@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller {
                     ->subject("Reset Password");
             });
 
-            return redirect()->route('login') -> with('success', "Berhasil mengirimkan email reset password!");
+            return redirect()->route('login') -> with('success', "A reset password email was successfully delivered!");
         }catch(QueryException $e){
             return redirect()->route('register')->with(['error' => $e->errorInfo]);
         }
@@ -75,22 +75,22 @@ class ForgotPasswordController extends Controller {
 
             $user = User::where('name', $name) -> where('email', $email) -> where('created_at', $created_at) -> first();
             if(!$user) {
-                return redirect() -> route('login') -> with('error', "Tidak dapat memproses permintaan! Token tidak valid");
+                return redirect() -> route('login') -> with('error', "Can't process the request! Token is not valid.");
             }
             if (!$this->isValidTimeStamp($timestamp)) {
-                return redirect() -> route('login') -> with('error', "Tidak dapat memproses permintaan! Timestamp tidak valid");
+                return redirect() -> route('login') -> with('error', "Can't process the request! Timestamp is not valid.");
             } else {
                 $timestamp_string = Carbon::createFromTimestamp($timestamp)->toDateTimeString();
                 $timestamp_string_add_1_day = Carbon::parse($timestamp_string)->addDays(1);
                 $waktu_saat_ini = Carbon::parse(now());
 
                 if ($waktu_saat_ini->greaterThan($timestamp_string_add_1_day)) {
-                    return redirect() -> route('login') -> with('error', "Tidak dapat memproses permintaan! Token sudah expired");
+                    return redirect() -> route('login') -> with('error', "Can't process the request! Token has expired.");
                 }
             }
 
             if (request('password') != request('password_confirmation')) {
-                return redirect() -> back() -> with('error', "Password Tidak sama");
+                return redirect() -> back() -> with('error', "Password is not match!");
             }
 
             $user->password = Hash::make(request('password'));
@@ -104,7 +104,7 @@ class ForgotPasswordController extends Controller {
                     ->subject("Password Changed");
             });
 
-            return redirect() -> route('login') -> with('success', "Berhasil reset password! Silahkan login");
+            return redirect() -> route('login') -> with('success', "Password was successfully reset! User may login");
         }catch(QueryException $e){
             return redirect()->route('forgotpassword')->with(['error' => $e->errorInfo]);
         }
