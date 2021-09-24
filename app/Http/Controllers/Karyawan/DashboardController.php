@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller {
     // Page Dashboard
@@ -15,6 +16,7 @@ class DashboardController extends Controller {
         
         $now = Carbon::now()->toDateString();
         $attendance = Attendance::join('users','users.id','=','attendances.user_id')
+        ->where('users.id',Auth::user()->id)
         ->whereDate('check_in',$now)->first();
 
         // $startTime = Carbon::parse($attendance->check_in);
