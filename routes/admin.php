@@ -20,6 +20,7 @@ Route::group(['middleware' => ["UserAdmin", 'prevent-back'], 'as' => 'adm.'], fu
 
     // Admin Profile Page
     Route::get('/adminprofile', [AdminProfileController::class, 'index'])->name('adminprofile');
+    Route::post('adminprofile',[AdminProfileController::class,'updateadminprofile'])->name('updateadminprofile');
 
     // Working Hours Page
     Route::get('/workinghours', [AdminWorkingHoursController::class, 'index'])->name('workinghours');
