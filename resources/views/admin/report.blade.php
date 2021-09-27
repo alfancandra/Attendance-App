@@ -20,6 +20,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     {{ __('Absent More Than 3 Days') }}
+                    
                 </div>
                 <div class="card-body">
                     <div class="datatable">
@@ -29,16 +30,18 @@
                                     <th>{{ __('ID') }}</th>
                                     <th>{{ __('Employee') }}</th>
                                     <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Absent Date') }}</th>
+                                    <th>{{ __('Total Absent') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($absent as $a)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $a->user_id }}</td>
+                                    <td>{{ $a->name }}</td>
+                                    <td>{{ $a->email }}</td>
+                                    <td>{{ $a->total }}</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -62,17 +65,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $i = 0;    
+                                @endphp
+                                @foreach ($reports as $report)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    {{-- Delete this below td tag and uncomment line 74-84
-                                        if finish get report data for Admin --}}
-                                    <td></td>
+                                    <td>{{ $report->created_at->format('d F Y') }}</td>
+                                    <td>{{ $report->name }}</td>
+                                    <td>{{ Carbon\Carbon::parse($report->check_in)->format('H:i:s') }}</td>
+                                    <td>{{ Carbon\Carbon::parse($report->check_out)->format('H:i:s') }}</td>
+                                    <td>{{ $durations[$i++] }}</td>
                                     {{-- 0:absent, 1:present, 2:late --}}
-                                    {{-- <td>
+                                    <td>
                                         @if ($report->absent==0)
                                             <div class="badge badge-danger badge-pil">Absent</div>
                                         @elseif ($report->absent==1)
@@ -82,8 +86,10 @@
                                         @else
                                             <div class="badge badge-dark badge-pil">Undefined</div>
                                         @endif
-                                    </td> --}}
+                                    </td>
                                 </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
