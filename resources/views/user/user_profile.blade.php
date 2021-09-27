@@ -59,7 +59,7 @@
                                 <div class="form-group">
                                     <label class="small mb-1" for="current_password">{{ __('Current Password') }}</label>
                                     <input class="form-control" id="current_password" name="current_password" type="password" maxlength="16" placeholder="Enter current password"/>
-                                    
+                                    @if(session()->has('current_password'))<p class="text-danger">{{session('current_password')}}</p>@endif
                                 </div>
                             </div>
                             <div class="form-group col-md-4">

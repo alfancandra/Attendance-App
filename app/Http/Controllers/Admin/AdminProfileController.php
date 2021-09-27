@@ -22,13 +22,19 @@ class AdminProfileController extends Controller {
             if(!empty($request->name)){
                 $user->name = $request->name;
             }
-            if(!empty($request->password) && !empty($request->password_confirmation)){
-                if($request->password == $request->password_confirmation){
-                    $user->password = Hash::make($request->password);
-                }else{
-                    return redirect() -> route('adm.adminprofile') -> with(['password' => 'Password confirmation Not same!']);
+
+            if(Hash::check($request->current_password, $user->password)){
+                if(!empty($request->password) && !empty($request->password_confirmation)){
+                    if($request->password == $request->password_confirmation){
+                        $user->password = Hash::make($request->password);
+                    }else{
+                        return redirect() -> route('adm.adminprofile') -> with(['password' => 'Password confirmation not same!']);
+                    }
                 }
+            }else{
+                return redirect() -> route('adm.adminprofile') -> with(['current_password' => 'Wrong Password!']);
             }
+
             if(!empty($request->image)) {
                 $resource = $request->file('image');
                 $name = uniqid() . '_' . time(). '.' .$resource->getClientOriginalName();
