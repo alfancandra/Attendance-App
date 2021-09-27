@@ -24,8 +24,8 @@
     </head>
     <body class="nav-fixed">
         <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="sidenavAccordion">
-            <img class="img-logo ml-3" src="{{ asset('assets') }}/assets/img/1ga-logo.png"/>
-            <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle" href="#">
+            <img class="img-logo order-1 order-sm-0 order-md-0" src="{{ asset('assets') }}/assets/img/1ga-logo.png"/>
+            <button class="btn btn-icon btn-transparent-dark ml-3 ml-lg-0 mr-lg-2" id="sidebarToggle" href="#">
                 <i data-feather="menu"></i>
             </button>
         </nav>
