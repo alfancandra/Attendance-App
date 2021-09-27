@@ -20,6 +20,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     {{ __('Absent More Than 3 Days') }}
+                    
                 </div>
                 <div class="card-body">
                     <div class="datatable">
@@ -29,16 +30,18 @@
                                     <th>{{ __('ID') }}</th>
                                     <th>{{ __('Employee') }}</th>
                                     <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Absent Date') }}</th>
+                                    <th>{{ __('Total Absent') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($absent as $a)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $a->user_id }}</td>
+                                    <td>{{ $a->name }}</td>
+                                    <td>{{ $a->email }}</td>
+                                    <td>{{ $a->total }}</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -62,14 +65,20 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $i = 0;    
+                                @endphp
+                                @foreach ($reports as $report)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $report->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $report->name }}</td>
+                                    <td>{{ Carbon\Carbon::parse($report->check_in)->format('H:i:s') }}</td>
+                                    <td>{{ Carbon\Carbon::parse($report->check_out)->format('H:i:s') }}</td>
+                                    <td>{{ $durations[$i++] }}</td>
+                                    <td>{{ $report->absent }}</td>
                                 </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
