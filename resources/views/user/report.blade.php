@@ -34,13 +34,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i = 0;?>
+                                @foreach($reports as $report)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$report->created_at->format('Y-m-d')}}</td>
+                                    <td>{{$report->created_at->format('H:i:s')}}</td>
+                                    <td>{{$report->check_out ? $report->updated_at->format('H:i:s') : null}}</td>
+                                    <td>{{$durations[$i++]}}</td>
+                                    <td>{{$report->absent}}</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
