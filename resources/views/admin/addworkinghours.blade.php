@@ -25,7 +25,16 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Day') }}</label>
-                                    <input class="form-control" id="name" name="name" type="text" maxlength="9" placeholder="Enter day" required/>
+                                    <select class="form-control" id="name" name="name">
+                                        <option selected disabled hidden>-- Select Day --</option>
+                                        <option value="0">Sunday</option>
+                                        <option value="1">Monday</option>
+                                        <option value="2">Tuesday</option>
+                                        <option value="3">Wednesday</option>
+                                        <option value="4">Thursday</option>
+                                        <option value="5">Friday</option>
+                                        <option value="6">Saturday</option>
+                                    </select>
                                     @if(session()->has('name'))<p class="text-danger">{{session('name')}}</p>@endif
                                 </div>
                             </div>

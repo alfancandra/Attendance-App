@@ -68,7 +68,21 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    {{-- Delete this below td tag and uncomment line 74-84
+                                        if finish get report data for Admin --}}
                                     <td></td>
+                                    {{-- 0:absent, 1:present, 2:late --}}
+                                    {{-- <td>
+                                        @if ($report->absent==0)
+                                            <div class="badge badge-danger badge-pil">Absent</div>
+                                        @elseif ($report->absent==1)
+                                            <div class="badge badge-primary badge-pil">Present</div>
+                                        @elseif ($report->absent==2)
+                                            <div class="badge badge-warning badge-pil">Late</div>
+                                        @else
+                                            <div class="badge badge-dark badge-pil">Undefined</div>
+                                        @endif
+                                    </td> --}}
                                 </tr>
                             </tbody>
                         </table>

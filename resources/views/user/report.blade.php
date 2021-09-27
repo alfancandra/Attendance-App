@@ -37,11 +37,22 @@
                                 <?php $i = 0;?>
                                 @foreach($reports as $report)
                                 <tr>
-                                    <td>{{$report->created_at->format('Y-m-d')}}</td>
+                                    <td>{{$report->created_at->format('d F Y')}}</td>
                                     <td>{{$report->created_at->format('H:i:s')}}</td>
                                     <td>{{$report->check_out ? $report->updated_at->format('H:i:s') : null}}</td>
                                     <td>{{$durations[$i++]}}</td>
-                                    <td>{{$report->absent}}</td>
+                                    {{-- 0:absent, 1:present, 2:late --}}
+                                    <td>
+                                        @if ($report->absent==0)
+                                            <div class="badge badge-danger badge-pil">Absent</div>
+                                        @elseif ($report->absent==1)
+                                            <div class="badge badge-primary badge-pil">Present</div>
+                                        @elseif ($report->absent==2)
+                                            <div class="badge badge-warning badge-pil">Late</div>
+                                        @else
+                                            <div class="badge badge-dark badge-pil">Undefined</div>
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
