@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <div class="datatable">
-                        <table class="table table-bordered table-hover" id="report_table" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="userreport_table" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>{{ __('Date') }}</th>
@@ -63,3 +63,10 @@
         </div>
     </main>
 @endsection
+@push('after-script')
+    <script>
+        $(document).ready(function() {
+            $('#userreport_table').DataTable();
+        });
+   </script>
+@endpush
