@@ -14,23 +14,23 @@
                         </div>
                     </div>
                 </div>
+                @if ($message = Session::get('success'))
+                    <div id="alert" class="alert alert-success alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div id="alert" class="alert alert-danger alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
             </div>
         </header>
         <div class="container mt-n10">
             <div class="card mb-4">
                 <div class="card-body">
-                    @if ($message = Session::get('success'))
-                                <div class="alert alert-success alert-block mb-2">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>    
-                                    {{ $message }}
-                                </div>
-                            @endif
-                            @if ($message = Session::get('error'))
-                                <div class="alert alert-danger alert-block mb-2">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>    
-                                    {{ $message }}
-                                </div>
-                            @endif
                     <form action="{{ route('adm.updateofficeprofile', $dataoffice->id) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         <div class="form-row">
@@ -94,5 +94,7 @@
             latInput.value= lat;
             longInput.value= lng;
         });
+        var timeout = 3000;
+        $('#alert').delay(timeout).fadeOut(300);
     </script>
 @endpush

@@ -15,7 +15,13 @@
                     </div>
                 </div>
                 @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-block mb-2">
+                    <div id="alert" class="alert alert-success alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div id="alert" class="alert alert-success alert-block mb-2">
                         <button type="button" class="close" data-dismiss="alert">×</button>    
                         {{ $message }}
                     </div>
@@ -29,7 +35,7 @@
                 </div>
                 <div class="card-body">
                     <div class="datatable">
-                        <table class="table table-bordered table-hover" id="report_table" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="employee_table" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>{{ __('No') }}</th>
@@ -72,3 +78,9 @@
         </div>
     </main>
 @endsection
+@push('after-script')
+    <script>
+        var timeout = 3000;
+        $('#alert').delay(timeout).fadeOut(300);
+    </script>
+@endpush

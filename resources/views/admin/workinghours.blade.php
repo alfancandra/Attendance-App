@@ -14,6 +14,18 @@
                         </div>
                     </div>
                 </div>
+                @if ($message = Session::get('success'))
+                    <div id="alert" class="alert alert-success alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div id="alert" class="alert alert-danger alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
             </div>
         </header>
         <div class="container mt-n10">
@@ -24,20 +36,8 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success alert-block mb-2">
-                            <button type="button" class="close" data-dismiss="alert">×</button>    
-                            {{ $message }}
-                        </div>
-                    @endif
-                    @if ($message = Session::get('error'))
-                        <div class="alert alert-danger alert-block mb-2">
-                            <button type="button" class="close" data-dismiss="alert">×</button>    
-                            {{ $message }}
-                        </div>
-                    @endif
                     <div class="datatable">
-                        <table class="table table-bordered table-hover" id="report_table" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="hours_table" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="50">{{ __('No') }}</th>
@@ -81,3 +81,9 @@
         </div>
     </main>
 @endsection
+@push('after-script')
+    <script>
+       var timeout = 3000;
+       $('#alert').delay(timeout).fadeOut(300);
+   </script>
+@endpush

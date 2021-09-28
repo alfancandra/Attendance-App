@@ -69,27 +69,26 @@
                                 $i = 0;    
                                 @endphp
                                 @foreach ($reports as $report)
-                                <tr>
-                                    <td>{{ $report->created_at->format('d F Y') }}</td>
-                                    <td>{{ $report->name }}</td>
-                                    <td>{{ Carbon\Carbon::parse($report->check_in)->format('H:i:s') }}</td>
-                                    <td>{{ Carbon\Carbon::parse($report->check_out)->format('H:i:s') }}</td>
-                                    <td>{{ $durations[$i++] }}</td>
-                                    {{-- 0:absent, 1:present, 2:late --}}
-                                    <td>
-                                        @if ($report->absent==0)
-                                            <div class="badge badge-danger badge-pil">Absent</div>
-                                        @elseif ($report->absent==1)
-                                            <div class="badge badge-primary badge-pil">Present</div>
-                                        @elseif ($report->absent==2)
-                                            <div class="badge badge-warning badge-pil">Late</div>
-                                        @else
-                                            <div class="badge badge-dark badge-pil">Undefined</div>
-                                        @endif
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $report->created_at->format('d F Y') }}</td>
+                                        <td>{{ $report->name }}</td>
+                                        <td>{{ Carbon\Carbon::parse($report->check_in)->format('H:i:s') }}</td>
+                                        <td>{{ Carbon\Carbon::parse($report->check_out)->format('H:i:s') }}</td>
+                                        <td>{{ $durations[$i++] }}</td>
+                                        {{-- 0:absent, 1:present, 2:late --}}
+                                        <td>
+                                            @if ($report->absent==0)
+                                                <div class="badge badge-danger badge-pil">Absent</div>
+                                            @elseif ($report->absent==1)
+                                                <div class="badge badge-primary badge-pil">Present</div>
+                                            @elseif ($report->absent==2)
+                                                <div class="badge badge-warning badge-pil">Late</div>
+                                            @else
+                                                <div class="badge badge-dark badge-pil">Undefined</div>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
-                                
                             </tbody>
                         </table>
                     </div>

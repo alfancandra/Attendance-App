@@ -10,13 +10,13 @@
                         </div>
                         <div class="card-body">
                             @if ($message = Session::get('success'))
-                                <div class="alert alert-success alert-block mb-2">
+                                <div id="alert" class="alert alert-success alert-block mb-2">
                                     <button type="button" class="close" data-dismiss="alert">×</button>    
                                     {{ $message }}
                                 </div>
                             @endif
                             @if ($message = Session::get('error'))
-                                <div class="alert alert-danger alert-block mb-2">
+                                <div id="alert" class="alert alert-danger alert-block mb-2">
                                     <button type="button" class="close" data-dismiss="alert">×</button>    
                                     {{ $message }}
                                 </div>
@@ -46,3 +46,9 @@
         </div>
     </main>
 @endsection
+@push('after-script')
+    <script>
+        var timeout = 3000;
+        $('#alert').delay(timeout).fadeOut(300);
+    </script>
+@endpush
