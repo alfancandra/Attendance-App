@@ -64,12 +64,12 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($hours->active == 0)
-                                                <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to activate this working hour?')" href="{{ route('adm.activatehours', $hours->id) }}"><i class="text-dark" data-feather="check"></i></a>
+                                                <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to activate this working hour?')" href="{{ route('adm.activatehours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Activate"><i class="text-dark" data-feather="check"></i></a>
                                             @elseif ($hours->active == 1)
-                                                <a onclick="return confirm('Are you sure want to deactivate this working hour?')" href="{{ route('adm.deactivatehours', $hours->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="x"></i></a>
+                                                <a onclick="return confirm('Are you sure want to deactivate this working hour?')" href="{{ route('adm.deactivatehours', $hours->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Deactivate"><i class="text-dark" data-feather="x"></i></a>
                                             @endif
-                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.editworkinghours', $hours->id) }}"><i class="text-dark" data-feather="edit"></i></a>
-                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to delete this working hour?')" href="{{ route('adm.destroyworkinghours', $hours->id) }}"><i class="text-dark" data-feather="trash"></i></a>
+                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.editworkinghours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Edit"><i class="text-dark" data-feather="edit"></i></a>
+                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to delete this working hour?')" href="{{ route('adm.destroyworkinghours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Remove"><i class="text-dark" data-feather="trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

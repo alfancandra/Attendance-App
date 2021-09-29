@@ -25,15 +25,15 @@
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Day') }}</label>
-                                    <select class="form-control" id="name" name="name">
+                                    <select class="form-control" id="name" name="name" required>
                                         <option selected disabled hidden>-- Select Day --</option>
-                                        <option value="0">Sunday</option>
-                                        <option value="1">Monday</option>
-                                        <option value="2">Tuesday</option>
-                                        <option value="3">Wednesday</option>
-                                        <option value="4">Thursday</option>
-                                        <option value="5">Friday</option>
-                                        <option value="6">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
                                     </select>
                                     @if(session()->has('name'))<p class="text-danger">{{session('name')}}</p>@endif
                                 </div>

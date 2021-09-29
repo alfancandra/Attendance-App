@@ -62,10 +62,10 @@
                                         </td>
                                         <td>
                                             @if(!empty($user->email_verified_at) && $user->active == 0)
-                                                <a href="{{ route('adm.accemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="check"></i></a>
-                                                <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="x"></i></a>
+                                                <a href="{{ route('adm.accemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Approve"><i class="text-dark" data-feather="check"></i></a>
+                                                <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reject"><i class="text-dark" data-feather="x"></i></a>
                                             @else
-                                                <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="text-dark" data-feather="trash"></i></a>
+                                                <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Remove"><i class="text-dark" data-feather="trash"></i></a>
                                             @endif
                                         </td>
                                     </tr>
