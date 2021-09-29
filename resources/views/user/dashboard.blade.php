@@ -38,13 +38,44 @@
                             </h1>
                             <div class="justify-content-between">                
                                 <div>
-
                                     {{-- If Attendance is Null, just init variable timer --}}
                                     @if(empty($attendance))
                                         @php
                                             $checkoutTime='00:00:00';
-                                            $waktu='00:00:00'
+                                            $waktu='00:00:00';
+                                            $officeLat = $office->langitude;
+                                            $officeLon = $office->longitude;
                                         @endphp
+                                    
+                                    <script>
+                                        
+                                        var latitude, longitude, gg;
+                                        
+                                        $(document).ready(function(){
+                                            if (navigator.geolocation) {
+                                                navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
+                                            } else {
+                                                alert('Device probably not ready.');
+                                            }
+                                        });
+                                        function handle_errors(error) {  
+                                            // error handling here
+                                        }
+                                        function handle_geolocation_query(position){  
+                                            var officeLat = {{ $office->langitude }};
+                                            var officeLon = {{ $office->longitude }};
+                                            latitude = (position.coords.latitude);
+                                            longitude = (position.coords.longitude);
+                                            gg = calculateDistance(latitude,longitude,officeLat,officeLon);
+                                            console.log(latitude,longitude);
+                                            return console.log(gg);
+                                        }
+                                        function onPositionReady() {
+                                            alert(latitude, longitude);
+                                            // proceed
+                                        }
+                                    </script>
+                                        
                                     {{-- If Attendance checkout row is null, 
                                         init variable checkin from database & Init variable checkout to null --}}
                                     @elseif(empty($attendance->check_out))
@@ -54,6 +85,7 @@
                                         @endphp
                                         <script type="text/javascript">
                                             checkin()
+                                            
                                         </script>
                                     @endif
 
@@ -66,7 +98,6 @@
                                         @endphp
                                     <script type="text/javascript">
                                         checkout()
-                                        console.log(calculateDistance('-7.2576594','112.7514089','-7.258573936856744','112.7384774254174'))
                                     </script>
                                     @endif
                                 </div>
@@ -75,7 +106,7 @@
                             <div class="justify-content-between">
                                 {{-- <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button> --}}
                                 @if(empty($attendance))
-                                <a class="btn btn-primary lift p-3" id="start" href="{{ route('usr.checkin',Auth::user()->id) }}">{{ __('Check In') }}</a>
+                                <a class="btn btn-primary lift p-3 checkin-button" id="start" data-href="{{ route('usr.checkin',Auth::user()->id) }}">{{ __('Check In') }}</a>
                                 <a class="btn btn-danger lift p-3 disabled" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
                                     {{ __("Check Out") }}</a>
                                 @elseif(!empty($attendance->check_out))
@@ -89,6 +120,16 @@
                                 @endif
                                 
                             </div>
+                            <script>
+                                $("#start").click(function () {
+                                    if(gg <= 10){
+                                        console.log(gg);
+                                        window.location.href = $(this).data('href');
+                                    }else{
+                                        alert('Kamu terlalu jauh dari kantor');
+                                    }
+                                });
+                            </script>
                         </div>
                         <div class="col justify-content-center align-items-center d-none d-lg-block">
                             <img class="img-dashboard" src="{{ asset('assets') }}/assets/img/illustration.svg" alt="Illustration">
@@ -117,7 +158,7 @@
 @endsection
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-    
+
     function clockTick() {
         var d = new Date();
         var day = d.getDay();
@@ -235,8 +276,10 @@
         x -= (beta * cos * Math.cos( long2 ));    
         y -= (beta * cos * Math.sin( long2 ));    
         z -= (beta * (1 - e) * Math.sin( lat2 ));       
-
-        return (Math.sqrt( (x*x) + (y*y) + (z*z) )/1000);  
+        
+        return (Math.sqrt( (x*x) + (y*y) + (z*z) )/1000)*1000;
         }
+
+        
     
 </script>
