@@ -82,5 +82,8 @@
     <script>
         var timeout = 3000;
         $('#alert').delay(timeout).fadeOut(300);
+        $(document).ready(function() {
+            $('#employee_table').DataTable();
+        });
     </script>
 @endpush

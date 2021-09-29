@@ -97,3 +97,11 @@
         </div>
     </main>
 @endsection
+@push('after-script')
+    <script>
+        $(document).ready(function() {
+            $('#absent_table').DataTable();
+            $('#report_table').DataTable();
+        });
+   </script>
+@endpush
