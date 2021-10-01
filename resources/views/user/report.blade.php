@@ -38,8 +38,8 @@
                                 @foreach($reports as $report)
                                 <tr>
                                     <td>{{$report->created_at->format('d F Y')}}</td>
-                                    <td>{{$report->created_at->format('H:i:s')}}</td>
-                                    <td>{{$report->check_out ? $report->updated_at->format('H:i:s') : null}}</td>
+                                    <td>{{Carbon\Carbon::parse($report->check_in)->format('H:i:s')}}</td>
+                                    <td>{{$report->check_out ? Carbon\Carbon::parse($report->check_out)->format('H:i:s') : null}}</td>
                                     <td>{{$durations[$i++]}}</td>
                                     {{-- 0:absent, 1:present, 2:late --}}
                                     <td>
