@@ -16,27 +16,11 @@
                 </div>
             </div>
         </header>
-        @php
-        if(!empty(Auth::user()->image)){
-            $photo = '/img/photo/'.Auth::user()->image;
-        }else{
-            $photo = '/assets/assets/img/user.png';
-        }
-        @endphp
         <div class="container mt-n10">
             <div class="card mb-4">
                 <div class="card-body">
                     <form action="{{ route('adm.updateadminprofile') }}" id="upload-image" method="POST" enctype="multipart/form-data" autocomplete="off">
                         @csrf
-                        <div class="col-xxl-12 col-xl-12 mb-3">
-                            <div class="text-center">
-                                <img class="img-account-profile mb-2" id="preview-image-before-upload" name="preview-image-before-upload" src="{{ asset($photo) }}" alt="Preview Image">
-                                <div class="small font-italic text-muted mb-4">{{ __('JPG or PNG, no more than 2 MB') }}</div>
-                                <label class="btn btn-secondary lift" type="button" for="image">{{ __('Choose Photo') }}</label>
-                                <input id="image" name="image" type="file" accept="image/x-png,image/jpeg" style="display: none;">
-                                @if(session()->has('btn_image'))<p class="text-danger">{{session('btn_image')}}</p>@endif
-                            </div>
-                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <div class="form-group">

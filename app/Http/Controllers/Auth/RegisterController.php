@@ -84,10 +84,11 @@ class RegisterController extends Controller {
         $data = array('name'=>$userName, "link" => $verify_url);
 
         // Lalu kita kirim link verifikasinya melalui email
-        Mail::html("Hello $user->name , please click $verify_url to verify your account. Thanks", function ($message) use ($userEmail) {
+        Mail::send('auth.emailregistration', $data, function ($message) use ($userEmail) {
             $message
+                ->from('admin@attendance-app.com', 'Attendance App')
                 ->to($userEmail)
-                ->subject("Account activation!");
+                ->subject("Account Activation");
         });
     }
 
