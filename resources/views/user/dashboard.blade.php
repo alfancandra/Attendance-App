@@ -126,6 +126,7 @@
                                         console.log(gg);
                                         window.location.href = $(this).data('href');
                                     }else{
+                                        location.reload();
                                         alert('Kamu terlalu jauh dari kantor');
                                     }
                                 });
