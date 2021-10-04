@@ -1,11 +1,11 @@
 @extends('partials.user_partials')
 @section('user_content')
         @php    
-        if(!empty(Auth::user()->image)){
-            $photo = '/img/photo/'.Auth::user()->image;
-        }else{
-            $photo = '/assets/assets/img/user.png';
-        }
+            if(!empty(Auth::user()->image)){
+                $photo = '/img/photo/'.Auth::user()->image;
+            }else{
+                $photo = '/assets/assets/img/user.png';
+            }
         @endphp
     <main>
         <div class="container">
@@ -26,9 +26,9 @@
                     <div class="row align-items-center justify-content-between">
                         <div class="col text-center">
                             @if($attendance)
-                            <h2 id="text" class="text-primary">Enjoy Your Work!</h2>
+                                <h2 id="text" class="text-primary">Enjoy Your Work!</h2>
                             @else
-                            <h2 id="text" class="text-primary">You're not check in yet!</h2>
+                                <h2 id="text" class="text-primary">You're not check in yet!</h2>
                             @endif
                             <h1 class="text-xl py-4">
                                 <span id="hour">00</span> :
@@ -47,37 +47,36 @@
                                             $officeLon = $office->longitude;
                                         @endphp
                                     
-                                    <script>
-                                        
-                                        var latitude, longitude, gg;
-                                        
-                                        $(document).ready(function(){
-                                            if (navigator.geolocation) {
-                                                navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
-                                            } else {
-                                                alert('Device probably not ready.');
+                                        <script>
+                                            var latitude, longitude, gg;
+                                            
+                                            $(document).ready(function(){
+                                                if (navigator.geolocation) {
+                                                    navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
+                                                } else {
+                                                    alert('Device probably not ready.');
+                                                }
+                                            });
+                                            function handle_errors(error) {  
+                                                // error handling here
                                             }
-                                        });
-                                        function handle_errors(error) {  
-                                            // error handling here
-                                        }
-                                        function handle_geolocation_query(position){  
-                                            var officeLat = {{ $office->langitude }};
-                                            var officeLon = {{ $office->longitude }};
-                                            latitude = (position.coords.latitude);
-                                            longitude = (position.coords.longitude);
-                                            gg = calculateDistance(latitude,longitude,officeLat,officeLon);
-                                            console.log(latitude,longitude);
-                                            return console.log(gg);
-                                        }
-                                        function onPositionReady() {
-                                            alert(latitude, longitude);
-                                            // proceed
-                                        }
-                                    </script>
+                                            function handle_geolocation_query(position){  
+                                                var officeLat = {{ $office->langitude }};
+                                                var officeLon = {{ $office->longitude }};
+                                                latitude = (position.coords.latitude);
+                                                longitude = (position.coords.longitude);
+                                                gg = calculateDistance(latitude,longitude,officeLat,officeLon);
+                                                console.log(latitude,longitude);
+                                                return console.log(gg);
+                                            }
+                                            function onPositionReady() {
+                                                alert(latitude, longitude);
+                                                // proceed
+                                            }
+                                        </script>
                                         
-                                    {{-- If Attendance checkout row is null, 
-                                        init variable checkin from database & Init variable checkout to null --}}
+                                        {{-- If Attendance checkout row is null, 
+                                            init variable checkin from database & Init variable checkout to null --}}
                                     @elseif(empty($attendance->check_out))
                                         @php
                                             $waktu=$attendance->check_in;
@@ -96,29 +95,36 @@
                                             $waktu=$attendance->check_in;
                                             $checkoutTime=$attendance->check_out;
                                         @endphp
-                                    <script type="text/javascript">
-                                        checkout()
-                                    </script>
+                                        <script type="text/javascript">
+                                            checkout()
+                                        </script>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="justify-content-between">
-                                {{-- <button class="btn btn-primary lift p-3" onclick="start()" id="start">{{ __('Check In') }}</button> --}}
                                 @if(empty($attendance))
-                                <a class="btn btn-primary lift p-3 checkin-button" id="start" data-href="{{ route('usr.checkin',Auth::user()->id) }}">{{ __('Check In') }}</a>
-                                <a class="btn btn-danger lift p-3 disabled" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
-                                    {{ __("Check Out") }}</a>
+                                    <a class="btn btn-primary lift p-3 checkin-button" id="start" data-href="{{ route('usr.checkin',Auth::user()->id) }}">
+                                        {{ __('Check In') }}
+                                    </a>
+                                    <a class="btn btn-danger lift p-3 disabled" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
+                                        {{ __("Check Out") }}
+                                    </a>
                                 @elseif(!empty($attendance->check_out))
-                                <a class="btn btn-primary lift p-3 disabled" id="start" href="{{ route('usr.checkin',Auth::user()->id) }}">{{ __('Check In') }}</a>
-                                <a class="btn btn-danger lift p-3 disabled" data-toggle="modal" data-target="#modalCheckout">
-                                    {{ __("Check Out") }}</a>
+                                    <a class="btn btn-primary lift p-3 disabled" id="start" href="{{ route('usr.checkin',Auth::user()->id) }}">
+                                        {{ __('Check In') }}
+                                    </a>
+                                    <a class="btn btn-danger lift p-3 disabled" data-toggle="modal" data-target="#modalCheckout">
+                                        {{ __("Check Out") }}
+                                    </a>
                                 @else
-                                <a class="btn btn-primary lift p-3 disabled" id="start">{{ __('Check In') }}</a>
-                                <a class="btn btn-danger lift p-3" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
-                                    {{ __("Check Out") }}</a>
+                                    <a class="btn btn-primary lift p-3 disabled" id="start">
+                                        {{ __('Check In') }}
+                                    </a>
+                                    <a class="btn btn-danger lift p-3" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
+                                        {{ __("Check Out") }}
+                                    </a>
                                 @endif
-                                
                             </div>
                             <script>
                                 $("#start").click(function () {
@@ -126,7 +132,7 @@
                                         console.log(gg);
                                         window.location.href = $(this).data('href');
                                     }else{
-                                        alert('Kamu terlalu jauh dari kantor');
+                                        alert('Your location is too far, maximal radius is 100m from office');
                                     }
                                 });
                             </script>
@@ -154,6 +160,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 @endsection
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
