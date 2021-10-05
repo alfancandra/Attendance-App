@@ -81,7 +81,10 @@ class RegisterController extends Controller {
         $userEmail = $user->email;
         $userName = $user->name;
 
-        $data = array('name'=>$userName, "link" => $verify_url);
+        $data = [
+            'name'=>$userName, 
+            "link" => $verify_url
+        ];
 
         // Lalu kita kirim link verifikasinya melalui email
         Mail::send('auth.emailregistration', $data, function ($message) use ($userEmail) {
