@@ -15,11 +15,11 @@ class AdminReportController extends Controller {
     // 2 = late
     // Page Report
     public function index() {
-        $absent = DB::table('attendances')
-        ->join('users','users.id','=','attendances.user_id')
-        ->select('attendances.absent','users.email','attendances.created_at','attendances.user_id','users.name',DB::raw('count(absent) as total'))
-        ->havingRaw('count(attendances.absent) >= 3',[2500] )
-        ->groupBy('attendances.user_id')
+        $absent = DB::table('absents')
+        ->join('users','users.id','=','absents.user_id')
+        ->select('users.email','absents.created_at','absents.id as idabsent','absents.user_id','users.name',DB::raw('count(absents.id) as total'))
+        ->havingRaw('count(absents.id) >= 3',[2500] )
+        ->groupBy('absents.user_id')
         ->get();
 
         $reports = Attendance::join('users','users.id','=','attendances.user_id')

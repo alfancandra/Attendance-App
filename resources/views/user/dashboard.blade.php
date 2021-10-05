@@ -105,27 +105,28 @@
                             </div>
 
                             <div class="justify-content-between">
-                                @if(empty($attendance))
+                                @if(empty($attendance) && Carbon\Carbon::now()->format('H:i:s') <= $workinghour->check_out)
                                     <a class="btn btn-primary lift p-3 checkin-button" id="start" data-href="{{ route('usr.checkin',Auth::user()->id) }}">
                                         {{ __('Check In') }}
                                     </a>
                                     <a class="btn btn-danger lift p-3 disabled" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
                                         {{ __("Check Out") }}
                                     </a>
-                                @elseif(!empty($attendance->check_out))
-                                    <a class="btn btn-primary lift p-3 disabled" id="start" href="{{ route('usr.checkin',Auth::user()->id) }}">
-                                        {{ __('Check In') }}
-                                    </a>
-                                    <a class="btn btn-danger lift p-3 disabled" data-toggle="modal" data-target="#modalCheckout">
-                                        {{ __("Check Out") }}
-                                    </a>
-                                @else
+                                @elseif(!empty($attendance->check_out) && !empty($attendance->check_in))
                                     <a class="btn btn-primary lift p-3 disabled" id="start">
                                         {{ __('Check In') }}
                                     </a>
-                                    <a class="btn btn-danger lift p-3" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
+                                    <a class="btn btn-danger lift p-3 disabled" id="checkout" onclick="confirm_modal()" data-toggle="modal" data-target="#modalCheckout">
                                         {{ __("Check Out") }}
                                     </a>
+                                @elseif(!empty($attendance->check_in))
+                                    <a class="btn btn-primary lift p-3 disabled" id="start" href="{{ route('usr.checkin',Auth::user()->id) }}">
+                                        {{ __('Check In') }}
+                                    </a>
+                                    <a class="btn btn-danger lift p-3" data-toggle="modal" data-target="#modalCheckout">
+                                        {{ __("Check Out") }}
+                                    </a>
+                                
                                 @endif
                             </div>
                             <script>
