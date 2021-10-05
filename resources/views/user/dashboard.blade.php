@@ -50,6 +50,9 @@
                                         <script>
                                             var latitude, longitude, gg;
                                             
+                                            localStorage.removeItem('startTime');
+                                            localStorage.removeItem('checkoutTime');
+
                                             $(document).ready(function(){
                                                 if (navigator.geolocation) {
                                                     navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
@@ -67,7 +70,6 @@
                                                 longitude = (position.coords.longitude);
                                                 gg = calculateDistance(latitude,longitude,officeLat,officeLon);
                                                 console.log(latitude,longitude);
-                                                return console.log(gg);
                                             }
                                             function onPositionReady() {
                                                 alert(latitude, longitude);
@@ -190,33 +192,54 @@
 
     // Stopwatch
     var x;
+    var startTime;
+    var timerr;
 
     function checkin(){
-        x = setInterval(timer, 10);
-        $('#start').attr("disabled",true);
+        // x = setInterval(timer, 10);
+        // $('#start').attr("disabled",true);
+        if (localStorage.getItem('startTime')) {
+            startTime = parseInt(localStorage.getItem('startTime'));
+        }else{
+            startTime = Date.now();
+            localStorage.setItem('startTime', startTime);
+        }
+        timerr = setInterval(timer, 1000);
     }
 
     function checkout(){
-        document.getElementById("text").innerHTML = "You've checked out!";
-        var d = new Date();
-        var hh = {{ date('H', strtotime($waktu)) }};
-        var mm = {{ date('i', strtotime($waktu)) }};
-        var ss = {{ date('s', strtotime($waktu)) }};
-        var hournow = {{ date('H', strtotime($checkoutTime)) }};
-        var minutenow = {{ date('i', strtotime($checkoutTime)) }};
-        var secondnow = {{ date('s', strtotime($checkoutTime)) }};
-        var diff = hournow - hh;
-        var diffminute = minutenow - mm;
-        document.getElementById("min").innerHTML = convert_positive(diffminute);
-        document.getElementById("hour").innerHTML = convert_positive(diff);
-        document.getElementById("sec").innerHTML = convert_positive(secondnow);
+        stop();
+        if (localStorage.getItem('checkoutTime')) {
+            var checkoutTime = localStorage.getItem('checkoutTime')
+        } else {
+            var checkoutTime = Date.now();
+            localStorage.setItem('checkoutTime', checkoutTime);
+        }
+
+        var time2 = localStorage.getItem('startTime');
+        var timeElapsed = new Date(checkoutTime - time2);
+        var hours = timeElapsed.getUTCHours();
+        var minutes = timeElapsed.getUTCMinutes();
+        var secs = timeElapsed.getUTCSeconds();
+
+        document.getElementById("sec").innerHTML = secs;
+        document.getElementById("min").innerHTML = minutes;
+        document.getElementById("hour").innerHTML = hours;
+    }
+
+    function reset() {
+        clearInterval(timerr);
+        localStorage.removeItem('startTime');
+        document.getElementById("sec").innerHTML = "00";
+        document.getElementById("min").innerHTML = "00";
+        document.getElementById("hour").innerHTML = "00";
     }
     
     /* Stop */
     function stop() {
         $('#start').removeAttr("disabled");
         document.getElementById("text").innerHTML = "You've checked out!";
-        clearInterval(x);
+        clearInterval(timerr);
     }
 
     function convert_positive(a) {
@@ -233,27 +256,15 @@
     /* Output variable End */
     function timer() {
     /* Main Timer */
-        var d = new Date();
-        var hh = {{ date('H', strtotime($waktu)) }};
-        var mm = {{ date('i', strtotime($waktu)) }};
-        var ss = {{ date('i', strtotime($waktu)) }};
-        var hournow = d.getHours();
-        var minutenow = d.getMinutes();
-        var secondnow = d.getSeconds();
-        var diff = hournow - hh;
-        var diffminute = minutenow - mm;
-        document.getElementById("sec").innerHTML = secondnow;
-        document.getElementById("min").innerHTML = convert_positive(diffminute);
-        document.getElementById("hour").innerHTML = convert_positive(diff);
-    }
+        var currtime = Date.now();
+        var timeElapsed = new Date(currtime - startTime);
+        var hours = timeElapsed.getUTCHours();
+        var minutes = timeElapsed.getUTCMinutes();
+        var secs = timeElapsed.getUTCSeconds();
 
-
-    /* Adds 0 when value is <10 */
-    function checkTime(i) {
-        if (i < 10) {
-            i = "0" + i;
-        }
-        return i;
+        document.getElementById("sec").innerHTML = secs;
+        document.getElementById("min").innerHTML = minutes;
+        document.getElementById("hour").innerHTML = hours;
     }
 
     // Calculate Distance
@@ -288,6 +299,4 @@
         return (Math.sqrt( (x*x) + (y*y) + (z*z) )/1000)*1000;
         }
 
-        
-    
 </script>
