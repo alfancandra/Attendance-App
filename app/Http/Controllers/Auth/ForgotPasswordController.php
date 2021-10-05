@@ -44,11 +44,20 @@ class ForgotPasswordController extends Controller {
             $timestamp_string = Carbon::createFromTimestamp($timestamp)->toDateTimeString();
             $token_expired = Carbon::parse($timestamp_string) -> addDay(1);
             $link = route('CheckLink', ['userToken' => $token, 'timestamp' => $timestamp]);
+            $username = $user->name;
 
-            Mail::html("Hello $user->name , please click $link to reset your password. This token valid until $token_expired <br> Thanks", function ($message) use ($usermail) {
+            $data = [
+                'email' => $usermail,
+                'name' => $username,
+                'link' => $link,
+                'tokenexpired' => $token_expired
+            ];
+
+            Mail::send('auth.emailforgotpass', $data, function ($message) use ($usermail) {
                 $message
+                    ->from('admin@attendance-app.com', 'Attendance App')
                     ->to($usermail)
-                    ->subject("Reset Password");
+                    ->subject("Reset Password Request");
             });
 
             return redirect()->route('login') -> with('success', "A reset password email was successfully delivered!");
@@ -98,13 +107,14 @@ class ForgotPasswordController extends Controller {
 
             $userEmail = $user->email;
 
-            Mail::html("Hello $user->name. Your password has been changed, contact us if you don't do this. Thanks", function ($message) use ($userEmail) {
+            Mail::html("Hello, $user->name. Your password has been changed, contact us if you don't do this. Thanks", function ($message) use ($userEmail) {
                 $message
+                    ->from('admin@attendance-app.com', 'Attendance App')
                     ->to($userEmail)
                     ->subject("Password Changed");
             });
 
-            return redirect() -> route('login') -> with('success', "Password was successfully reset! User may login");
+            return redirect() -> route('login') -> with('success', "Success created new password! You can login with your new password");
         }catch(QueryException $e){
             return redirect()->route('forgotpassword')->with(['error' => $e->errorInfo]);
         }

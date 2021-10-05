@@ -82,8 +82,8 @@ class RegisterController extends Controller {
         $userName = $user->name;
 
         $data = [
-            'name'=>$userName, 
-            "link" => $verify_url
+            'name' => $userName, 
+            'link' => $verify_url
         ];
 
         // Lalu kita kirim link verifikasinya melalui email
@@ -113,7 +113,6 @@ class RegisterController extends Controller {
         $user->email_verify_token = null;
         $user->update();
 
-        return redirect()->route('login')
-                        ->with('success','Verification is successful! Please log in.');
+        return redirect()->route('login')->with('success','Account activation is successful! Please log in.');
     }
 }
