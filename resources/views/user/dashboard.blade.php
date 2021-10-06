@@ -300,7 +300,7 @@
         y -= (beta * cos * Math.sin( long2 ));    
         z -= (beta * (1 - e) * Math.sin( lat2 ));       
         
-        return (Math.sqrt( (x*x) + (y*y) + (z*z) )/1000)*1000;
+        return (Math.sqrt( (x*x) + (y*y) + (z*z) )/1000)*10000;
         }
 
 </script>
