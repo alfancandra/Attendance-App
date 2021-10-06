@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -13,7 +11,8 @@ class AdminReportController extends Controller {
     // 0 = absent
     // 1 = masuk
     // 2 = late
-    // Page Report
+
+    // Report Page
     public function index() {
         $absent = DB::table('absents')
         ->join('users','users.id','=','absents.user_id')
@@ -24,12 +23,12 @@ class AdminReportController extends Controller {
         ->get();
 
         $reports = Attendance::join('users','users.id','=','attendances.user_id')
-        ->select('users.name','attendances.check_in','attendances.check_out','attendances.absent','attendances.created_at')
-        ->get();
+            ->select('users.name','attendances.check_in','attendances.check_out','attendances.absent','attendances.created_at')
+            ->get();
 
         $durations = [];
         $i=0;
-        foreach ($reports as $r){ // 7281 -> 2:21
+        foreach ($reports as $r) { // 7281 -> 2:21
             $checkin = new Carbon($r->check_in);
             $checkout= new Carbon($r->check_out);
             $hours = (int) $checkout->diffInHours($checkin);
@@ -40,5 +39,4 @@ class AdminReportController extends Controller {
         
         return view('admin.report',compact('absent','reports','durations'));
     }
-
 }

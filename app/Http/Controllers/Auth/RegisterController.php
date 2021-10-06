@@ -14,63 +14,55 @@ use App\Mail\VerifyEmail;
 use Mail;
 
 class RegisterController extends Controller {
-
-    // Page Register
+    /**
+     * Show register page
+     */
     public function index() {
-        if(Auth::check() && Auth::user()->role_id==0){
+        if (Auth::check() && Auth::user()->role_id==0) {
             return redirect() -> route('usr.dashboard');
         }
+        
         return view('auth.register');
     }
 
-    // Fungsi Register
-    public function store(Request $request)
-    {
+    /**
+     * Methode that use to store user data to database
+     */
+    public function store(Request $request) {
         // Validasi data
-        // $validator = Validator::make($request->all(),[
-        //     'name' => ['required'],
-        //     'email' => ['required'],
-        //     'password' => ['min:6', 'required_with:confirm_password', 'same:confirm_password'],
-        //     'confirm_password' => ['min:6']
-        // ]);
-        // if($validator->fails()){
-        //     return response()->json($validator->errors(),
-        //     Response::HTTP_UNPROCESSABLE_ENTITY);
-        // }
-
         $this->validate(request(), [
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users|min:8|max:255',
             'password' => 'required|confirmed|min:8|max:16',
         ]);
 
-        // Store to DB
-        try{
+        // Store user data to database
+        try {
             $register = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
+
             $response = [
                 'message' => 'User Created',
                 'data' => $register
             ];
 
-            // Proses verifikasi email, dan jangan langsung di loginkan
+            // Email verification process, and user can't login
             $this->emailverification($request->email);
 
             return redirect()->route('login')->with(['success' => 'Success create account!. Please check your email and click the link to activate your account.']);
-        }catch(QueryException $e){
-            // return response()->json([
-            //     'message' => "Failed " . $e->errorInfo
-            // ]);
+        } catch (QueryException $e) {
             return redirect()->route('register')->with(['error' => $e->errorInfo]);
         }
     }
 
-    // Send Verify Email
-    protected function emailverification($email)
-    {
+    /**
+     * Sending email verification to user
+     * @param $email
+     */
+    protected function emailverification($email) {
         $user = User::where('email', $email) -> first();
 
         $token = Str::uuid();
@@ -86,7 +78,6 @@ class RegisterController extends Controller {
             'link' => $verify_url
         ];
 
-        // Lalu kita kirim link verifikasinya melalui email
         Mail::send('auth.emailregistration', $data, function ($message) use ($userEmail) {
             $message
                 ->from('admin@attendance-app.com', 'Attendance App')
@@ -96,16 +87,16 @@ class RegisterController extends Controller {
     }
 
     /**
-     * Method yang akan dipanggil ketika user menekan link verifikasi
+     * Method that use to verify when user have to click the verification link
      * @param $user_token
      */
     public function verify($user_token) {
 
-        // cari kedalam database
+        // Search user email verification token
         $user = User::where('email_verify_token', $user_token) -> first();
 
-        // Jika user tidak ditemukan
-        if(!$user) {
+        // If user not found
+        if (!$user) {
             return redirect()->route('register')->with('error','Invalid verification token!');
         }
 

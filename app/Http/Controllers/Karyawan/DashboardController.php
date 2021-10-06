@@ -12,10 +12,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller {
-    // Page Dashboard
-    
+    /**
+     * Show user dashboard page
+     */
     public function index() {
-
         $daynow = Carbon::now()->format('l');
         $now = Carbon::now()->toDateString();
         $office = Office::first();
@@ -24,12 +24,6 @@ class DashboardController extends Controller {
         ->where('users.id',Auth::user()->id)
         ->whereDate('check_in',$now)->first();
 
-        // $startTime = Carbon::parse($attendance->check_in);
-        // $endTime = Carbon::now();
-
-        // $totalDuration =  $startTime->diff($endTime)->format('%S');
-        // dd($totalDuration);
-        // dd($attendance->check_in);
         return view('user.dashboard',compact('attendance','office','workinghour'));
     }
 }

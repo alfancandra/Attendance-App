@@ -14,6 +14,18 @@
                         </div>
                     </div>
                 </div>
+                @if ($message = Session::get('success'))
+                    <div id="alert" class="alert alert-success alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div id="alert" class="alert alert-danger alert-block mb-2">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        {{ $message }}
+                    </div>
+                @endif
             </div>
         </header>
         <div class="container mt-n10">
@@ -50,14 +62,14 @@
                                 <div class="form-group">
                                     <label class="small mb-1" for="password">{{ __('Password') }}</label>
                                     <input class="form-control" id="password" name="password" type="password" maxlength="16" placeholder="Enter your password"/>
-                                    
+                                    @if(session()->has('password'))<p class="text-danger">{{session('password')}}</p>@endif
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Confirm Password') }}</label>
                                     <input class="form-control" id="password" name="password_confirmation" type="password" maxlength="16" placeholder="Confirm your password"/>
-                                    @if(session()->has('password'))<p class="text-danger">{{session('password')}}</p>@endif
+                                    @if(session()->has('password_confirmation'))<p class="text-danger">{{session('password_confirmation')}}</p>@endif
                                 </div>
                             </div>
                         </div>
@@ -70,15 +82,19 @@
         </div>
     </main>
 @endsection
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-    $(document).ready(function (e) {
-        $('#image').change(function() {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#preview-image-before-upload').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
+@push('after-script')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            $('#image').change(function() {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#preview-image-before-upload').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
         });
-    });
-</script>
+        var timeout = 3000;
+        $('#alert').delay(timeout).fadeOut(300);
+    </script>
+@endpush

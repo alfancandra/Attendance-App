@@ -23,19 +23,18 @@ class ForgotPasswordController extends Controller {
         return view('auth.forgotpassword');
     }
 
-    // Function forgot password
-    public function SendLink(Request $request)
-    {
-        // Validasi Form
+    // Forgot Password Function
+    public function SendLink(Request $request) {
+        // Form Validation
         $this->validate(request(), [
             'email' => 'required|email|max:255'
         ]);
 
-        try{
+        try {
             $user = User::where('email',$request->email)->first();
 
             if (!$user) {
-                return redirect() -> back() -> with('error', "Cannot find the user!");
+                return redirect()->back()->with('error', "Cannot find the user!");
             }
 
             $usermail = $user->email;
@@ -61,7 +60,7 @@ class ForgotPasswordController extends Controller {
             });
 
             return redirect()->route('login') -> with('success', "A reset password email was successfully delivered!");
-        }catch(QueryException $e){
+        } catch (QueryException $e) {
             return redirect()->route('register')->with(['error' => $e->errorInfo]);
         }
     }
@@ -74,16 +73,15 @@ class ForgotPasswordController extends Controller {
     }
 
     // Save New Password
-    public function newpassword($userToken, $timestamp)
-    {
-        try{
+    public function newpassword($userToken, $timestamp) {
+        try {
             $token = explode("|", base64_decode($userToken));
             empty($token[0]) ? $name='' : $name=$token[0];
             empty($token[1]) ? $email='' : $email=$token[1];
             empty($token[2]) ? $created_at='' : $created_at=$token[2];
 
             $user = User::where('name', $name) -> where('email', $email) -> where('created_at', $created_at) -> first();
-            if(!$user) {
+            if (!$user) {
                 return redirect() -> route('login') -> with('error', "Can't process the request! Token is not valid.");
             }
             if (!$this->isValidTimeStamp($timestamp)) {
@@ -115,15 +113,14 @@ class ForgotPasswordController extends Controller {
             });
 
             return redirect() -> route('login') -> with('success', "Success created new password! You can login with your new password");
-        }catch(QueryException $e){
+         }catch (QueryException $e) {
             return redirect()->route('forgotpassword')->with(['error' => $e->errorInfo]);
         }
         
     }
 
     // Validasi TimeStamp
-    private function isValidTimeStamp($timestamp): bool
-    {
+    private function isValidTimeStamp($timestamp): bool {
         return ((string) (int) $timestamp === $timestamp)
             && ($timestamp <= PHP_INT_MAX)
             && ($timestamp >= ~PHP_INT_MAX);

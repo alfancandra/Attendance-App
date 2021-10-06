@@ -8,12 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserReportController extends Controller {
-    // Page User Report
+    /**
+     * Show user report page
+     */
     public function index() {
         $reports = Attendance::where(['user_id' => Auth::user()->id])->get();
+        
         $durations = [];
         $i=0;
-        foreach ($reports as $r){ // 7281 -> 2:21
+        foreach ($reports as $r) { // 7281 -> 2:21
             $hours = (int) $r->updated_at->diffInHours($r->created_at);
             $minutes = (int) $r->updated_at->diffInMinutes($r->created_at) - ($hours * 60); // 121 - 120 = 1
             $seconds = (int) $r->updated_at->diffInSeconds($r->created_at)%60;

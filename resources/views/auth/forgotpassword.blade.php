@@ -26,7 +26,7 @@
                             @csrf
                                 <div class="form-group">
                                     <label class="small mb-1" for="email">{{ __('Email') }}</label>
-                                    <input class="form-control" id="email" name="email" type="email" maxlength="255" aria-describedby="email" placeholder="Enter email address" />
+                                    <input class="form-control" id="email" name="email" type="email" maxlength="255" aria-describedby="email" placeholder="Enter email address" required />
                                 </div>
                                 <button class="btn btn-primary" type="submit">{{ __('Submit') }}</button>
                             </form>

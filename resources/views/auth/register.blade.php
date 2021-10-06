@@ -19,7 +19,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="name">{{ __('Full Name') }}</label>
+                                        <label class="small mb-1" for="name">{{ __('Fullname') }}</label>
                                         <input class="form-control" id="name" name="name" type="text" maxlength="255" placeholder="Enter your fullname" value="{{ old('name') }}" />
                                         @if ($errors->has('name'))<small class="text-danger" role="alert">{{ $errors->first('name') }}</small>@endif
                                     </div>

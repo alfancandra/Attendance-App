@@ -21,8 +21,6 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <h5 class="text-primary">you are <span id="location" class="badge badge-primary"></span> meters from the office</h5>
             <div class="card card-waves mb-4 mt-5">
                 <div class="card-body p-5">
                     <div class="row align-items-center justify-content-between">
@@ -38,6 +36,11 @@
                                 <span id="sec">00</span>
                                 <span hidden id="milisec">00</span>
                             </h1>
+                            <h5 class="text-primary">
+                                Your location is
+                                <span id="location" class="badge mb-3"></span>
+                                meters from the office
+                            </h5>
                             <div class="justify-content-between">                
                                 <div>
                                     {{-- If Attendance is Null, just init variable timer --}}
@@ -72,7 +75,15 @@
                                                 longitude = (position.coords.longitude);
                                                 gg = calculateDistance(latitude,longitude,officeLat,officeLon);
                                                 console.log(latitude,longitude);
-                                                document.getElementById("location").innerHTML = parseInt(gg);
+                                                // document.getElementById("location").innerHTML = parseInt(gg);
+                                                if(gg<=100) {
+                                                    document.getElementById("location").innerHTML = parseInt(gg);
+                                                    document.getElementById("location").classList.add('badge-primary');
+                                                } else {
+                                                    document.getElementById("location").innerHTML = parseInt(gg);
+                                                    document.getElementById("location").classList.add('badge-danger');
+                                                };
+                                                console.log(gg);
                                             }
                                             function onPositionReady() {
                                                 alert(latitude, longitude);
@@ -170,7 +181,7 @@
         </div>
     </main>
 @endsection
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
     function clockTick() {
@@ -300,7 +311,7 @@
         y -= (beta * cos * Math.sin( long2 ));    
         z -= (beta * (1 - e) * Math.sin( lat2 ));       
         
-        return (Math.sqrt( (x*x) + (y*y) + (z*z) )/1000)*10000;
+        return (Math.sqrt( (x*x) + (y*y) + (z*z) )/1000)*100000;
         }
 
 </script>
