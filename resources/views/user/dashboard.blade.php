@@ -100,7 +100,6 @@
                                         @endphp
                                         <script type="text/javascript">
                                             checkin()
-                                            
                                         </script>
                                     @endif
 
@@ -144,15 +143,17 @@
                                 @endif
                             </div>
                             <script>
-                                $("#start").click(function () {
+                                $('#start').click(function () {
                                     if(gg <= 10){
-                                        console.log(gg);
                                         window.location.href = $(this).data('href');
                                     }else{
-                                        location.reload();
-                                        alert('Your location is too far, maximal radius is 100m from office');
+                                        $('#locationModal').modal('show');
                                     }
-                                });
+
+                                    $('#close').click(function() {
+                                        location.reload();
+                                    });
+                                });  
                             </script>
                         </div>
                         <div class="col justify-content-center align-items-center d-none d-lg-block">
@@ -175,6 +176,20 @@
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
                         <a href="{{ route('usr.checkout',Auth::user()->id) }}" class="btn btn-danger" id="stop">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="locationModalLabel">Location Alert</h5>
+                        <button class="close" id="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your location is too far, the maximum radius is 100 meters from office.</p>
                     </div>
                 </div>
             </div>
@@ -225,7 +240,7 @@
     function checkout(){
         stop();
         if (localStorage.getItem('checkoutTime')) {
-            var checkoutTime = localStorage.getItem('checkoutTime')
+            var checkoutTime = localStorage.getItem('checkoutTime');
         } else {
             var checkoutTime = Date.now();
             localStorage.setItem('checkoutTime', checkoutTime);
@@ -237,17 +252,9 @@
         var minutes = timeElapsed.getUTCMinutes();
         var secs = timeElapsed.getUTCSeconds();
 
-        document.getElementById("sec").innerHTML = secs;
-        document.getElementById("min").innerHTML = minutes;
-        document.getElementById("hour").innerHTML = hours;
-    }
-
-    function reset() {
-        clearInterval(timerr);
-        localStorage.removeItem('startTime');
-        document.getElementById("sec").innerHTML = "00";
-        document.getElementById("min").innerHTML = "00";
-        document.getElementById("hour").innerHTML = "00";
+        document.getElementById("sec").innerHTML = checkTime(secs);
+        document.getElementById("min").innerHTML = checkTime(minutes);
+        document.getElementById("hour").innerHTML = checkTime(hours);
     }
     
     /* Stop */
@@ -255,17 +262,6 @@
         $('#start').removeAttr("disabled");
         document.getElementById("text").innerHTML = "You've checked out!";
         clearInterval(timerr);
-    }
-
-    function convert_positive(a) {
-        // Check the number is negative
-        if (a < 0) {
-            // Multiply number with -1
-            // to make it positive
-            a = a * -1;
-        }
-        // Return the positive number
-        return a;
     }
 
     /* Output variable End */
@@ -277,9 +273,16 @@
         var minutes = timeElapsed.getUTCMinutes();
         var secs = timeElapsed.getUTCSeconds();
 
-        document.getElementById("sec").innerHTML = secs;
-        document.getElementById("min").innerHTML = minutes;
-        document.getElementById("hour").innerHTML = hours;
+        document.getElementById("sec").innerHTML = checkTime(secs);
+        document.getElementById("min").innerHTML = checkTime(minutes);
+        document.getElementById("hour").innerHTML = checkTime(hours);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
     }
 
     // Calculate Distance
