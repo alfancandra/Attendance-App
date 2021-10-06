@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller {
     /**
@@ -20,6 +21,10 @@ class UserProfileController extends Controller {
      * Method that use to update user profile
      */
     public function updateprofile(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'password' => ['min:8', 'max:16']
+        ]);
+
         try {
             $user = User::where('id',Auth::user()->id)->first();
             if (!empty($request->name)) {
@@ -27,6 +32,10 @@ class UserProfileController extends Controller {
             }
             
             if (!empty($request->current_password)) {
+                if ($validator->fails()) {
+                    return redirect() -> route('usr.profile') -> with(['password' => 'The password must be at least 8 characters.']);
+                }
+
                 if(Hash::check($request->current_password, $user->password)) {
                     if($request->password == $request->password_confirmation) {
                         $user->password = Hash::make($request->password);
@@ -46,7 +55,7 @@ class UserProfileController extends Controller {
             }
             $user->update();
 
-            return redirect() -> route('usr.profile')->with(['error' => 'Password confirmation Not same!']);
+            return redirect() -> route('usr.profile')->with(['success' => 'Your profile has been updated.']);
         } catch(QueryException $e){
             return redirect() -> route('usr.profile')->with(['error' => $e->errorInfo]);
         }

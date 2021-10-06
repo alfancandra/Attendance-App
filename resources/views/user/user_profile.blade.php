@@ -23,13 +23,19 @@
             $photo = '/assets/assets/img/user.png';
         }
         @endphp
-        @if ($message = Session::get('error'))
-        <div class="alert alert-danger alert-block mb-3">
-            <button type="button" class="close" data-dismiss="alert">×</button>    
-            {{ $message }}
-        </div>
-        @endif
         <div class="container mt-n10">
+            @if ($message = Session::get('success'))
+                <div id="alert" class="alert alert-success alert-block mb-3">
+                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                    {{ $message }}
+                </div>
+            @endif
+            @if ($message = Session::get('error'))
+                <div id="alert" class="alert alert-danger alert-block mb-3">
+                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                    {{ $message }}
+                </div>
+            @endif
             <div class="card mb-4">
                 <div class="card-body">
                     <form action="{{ route('usr.updateprofile') }}" id="upload-image" method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -94,13 +100,21 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    $(document).ready(function (e) {
-        $('#image').change(function() {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#preview-image-before-upload').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
-    });
+    
 </script>
+@push('after-script')
+    <script>
+        $(document).ready(function (e) {
+            $('#image').change(function() {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#preview-image-before-upload').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+
+        var timeout = 3000;
+        $('#alert').delay(timeout).fadeOut(300);
+    </script>
+@endpush

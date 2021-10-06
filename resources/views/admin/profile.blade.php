@@ -8,27 +8,27 @@
                         <div class="col-auto mt-4">
                             <h1 class="page-header-title">
                                 <div class="page-header-icon"><i data-feather="user"></i></div>
-                                {{ __('User Profile') }}
+                                {{ __('Admin Profile') }}
                             </h1>
                             <div class="page-header-subtitle">{{ __('Employee Attendance App') }}</div>
                         </div>
                     </div>
                 </div>
-                @if ($message = Session::get('success'))
-                    <div id="alert" class="alert alert-success alert-block mb-2">
-                        <button type="button" class="close" data-dismiss="alert">×</button>    
-                        {{ $message }}
-                    </div>
-                @endif
-                @if ($message = Session::get('error'))
-                    <div id="alert" class="alert alert-danger alert-block mb-2">
-                        <button type="button" class="close" data-dismiss="alert">×</button>    
-                        {{ $message }}
-                    </div>
-                @endif
             </div>
         </header>
         <div class="container mt-n10">
+            @if ($message = Session::get('success'))
+                <div id="alert" class="alert alert-success alert-block mb-3">
+                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                    {{ $message }}
+                </div>
+            @endif
+            @if ($message = Session::get('error'))
+                <div id="alert" class="alert alert-danger alert-block mb-3">
+                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                    {{ $message }}
+                </div>
+            @endif
             <div class="card mb-4">
                 <div class="card-body">
                     <form action="{{ route('adm.updateadminprofile') }}" id="upload-image" method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -85,15 +85,6 @@
 @push('after-script')
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        $(document).ready(function (e) {
-            $('#image').change(function() {
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                    $('#preview-image-before-upload').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
-        });
         var timeout = 3000;
         $('#alert').delay(timeout).fadeOut(300);
     </script>
