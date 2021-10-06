@@ -23,6 +23,12 @@
             $photo = '/assets/assets/img/user.png';
         }
         @endphp
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger alert-block mb-3">
+            <button type="button" class="close" data-dismiss="alert">×</button>    
+            {{ $message }}
+        </div>
+        @endif
         <div class="container mt-n10">
             <div class="card mb-4">
                 <div class="card-body">
@@ -66,14 +72,14 @@
                                 <div class="form-group">
                                     <label class="small mb-1" for="password">{{ __('New Password') }}</label>
                                     <input class="form-control" id="password" name="password" type="password" maxlength="16" placeholder="Enter your password"/>
-                                    
+                                    @if(session()->has('password'))<p class="text-danger">{{session('password')}}</p>@endif
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Confirm Password') }}</label>
                                     <input class="form-control" id="password" name="password_confirmation" type="password" maxlength="16" placeholder="Confirm your password"/>
-                                    @if(session()->has('password'))<p class="text-danger">{{session('password')}}</p>@endif
+                                    @if(session()->has('password_confirmation'))<p class="text-danger">{{session('password_confirmation')}}</p>@endif
                                 </div>
                             </div>
                         </div>
