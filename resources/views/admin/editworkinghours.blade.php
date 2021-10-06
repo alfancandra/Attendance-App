@@ -19,14 +19,14 @@
         <div class="container mt-n10">
             <div class="card mb-4">
                 <div class="card-body">
-                    <form autocomplete="off" method="POST" action="{{ route('adm.updateworkinghours', $dataworkinghours->id) }}">
+                    <form method="POST" action="{{ route('adm.updateworkinghours', $dataworkinghours->id) }}">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <div class="form-group">
                                     <label class="small mb-1" for="name">{{ __('Day') }}</label>
                                     <select class="form-control" id="name" name="name" required>
-                                        <option selected disabled hidden>{{ $dataworkinghours->name }}</option>
+                                        <option value="{{ $dataworkinghours->name }}" selected>{{ $dataworkinghours->name }}</option>
                                         <option value="Sunday">Sunday</option>
                                         <option value="Monday">Monday</option>
                                         <option value="Tuesday">Tuesday</option>

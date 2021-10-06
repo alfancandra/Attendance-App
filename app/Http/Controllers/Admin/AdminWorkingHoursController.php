@@ -66,11 +66,6 @@ class AdminWorkingHoursController extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $this->validate(request(), [
-            'name' => 'required|max:9',
-            'check_in' => 'required',
-            'check_out' => 'required',
-        ]);
 
         try {
             $workinghour = WorkingHour::where('id', $id) -> first();
