@@ -21,6 +21,8 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <h5 class="text-primary">you are <span id="location" class="badge badge-primary"></span> meters from the office</h5>
             <div class="card card-waves mb-4 mt-5">
                 <div class="card-body p-5">
                     <div class="row align-items-center justify-content-between">
@@ -70,6 +72,7 @@
                                                 longitude = (position.coords.longitude);
                                                 gg = calculateDistance(latitude,longitude,officeLat,officeLon);
                                                 console.log(latitude,longitude);
+                                                document.getElementById("location").innerHTML = parseInt(gg);
                                             }
                                             function onPositionReady() {
                                                 alert(latitude, longitude);
