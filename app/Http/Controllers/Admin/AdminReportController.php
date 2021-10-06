@@ -17,9 +17,10 @@ class AdminReportController extends Controller {
     public function index() {
         $absent = DB::table('absents')
         ->join('users','users.id','=','absents.user_id')
-        ->select('users.email','absents.created_at','absents.id as idabsent','absents.user_id','users.name',DB::raw('count(absents.id) as total'))
+        ->select('users.email','absents.created_at','absents.id as idabsent','absents.user_id','users.name',DB::raw('count(absents.id) as total'),DB::raw('YEAR(absents.created_at) year, MONTH(absents.created_at) month'))
         ->havingRaw('count(absents.id) >= 3',[2500] )
         ->groupBy('absents.user_id')
+        ->groupby('month')
         ->get();
 
         $reports = Attendance::join('users','users.id','=','attendances.user_id')

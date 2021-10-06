@@ -31,6 +31,7 @@
                                     <th>{{ __('Employee') }}</th>
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Total Absent') }}</th>
+                                    <th>{{ __('Month') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,6 +41,7 @@
                                     <td>{{ $a->name }}</td>
                                     <td>{{ $a->email }}</td>
                                     <td>{{ $a->total }}</td>
+                                    <td>{{ $a->month }} - {{ $a->year }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
