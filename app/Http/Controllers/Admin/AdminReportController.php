@@ -24,6 +24,7 @@ class AdminReportController extends Controller {
 
         $reports = Attendance::join('users','users.id','=','attendances.user_id')
             ->select('users.name','attendances.check_in','attendances.check_out','attendances.absent','attendances.created_at')
+            ->orderBy('attendances.created_at','DESC')
             ->get();
 
         $durations = [];

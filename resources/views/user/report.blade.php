@@ -66,7 +66,9 @@
 @push('after-script')
     <script>
         $(document).ready(function() {
-            $('#userreport_table').DataTable();
+            $('#userreport_table').DataTable({
+                "order": [[ 0, "desc" ]]
+            });
         });
    </script>
 @endpush

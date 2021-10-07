@@ -100,10 +100,17 @@
     </main>
 @endsection
 @push('after-script')
-    <script>
-        $(document).ready(function() {
-            $('#absent_table').DataTable();
-            $('#report_table').DataTable();
+<script>
+
+    $(document).ready(function() {
+
+        $('#absent_table').DataTable();
+
+        $('#report_table').DataTable({
+            "order": [[ 0, "desc" ]]
         });
-   </script>
+
+    });
+
+</script>
 @endpush
