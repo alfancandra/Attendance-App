@@ -41,13 +41,7 @@
                                     <td>{{ $a->name }}</td>
                                     <td>{{ $a->email }}</td>
                                     <td>{{ $a->total }}</td>
-                                    <td id="txtmonth"></td>
-                                    <script>
-                                        var month = {{ $a->month }} - 1
-                                        var monthArr = ["January", "February", "March", "April", "Mei", "June", "July", "August", "September", "October", "November", "December"];
-                                        month = monthArr[month];
-                                        document.getElementById("txtmonth").innerHTML = month + ' ' + {{ $a->year }};
-                                    </script>
+                                    <td>{{ $a->month }} - {{ $a->year }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

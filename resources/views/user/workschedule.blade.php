@@ -7,7 +7,7 @@
                     <div class="row align-items-center justify-content-between">
                         <div class="col-auto mt-4">
                             <h1 class="page-header-title">
-                                <div class="page-header-icon"><i data-feather="clock"></i></div>
+                                <div class="page-header-icon"><i data-feather="bar-chart-2"></i></div>
                                 {{ __('Work Schedule') }}
                             </h1>
                             <div class="page-header-subtitle">{{ __('Employee Attendance App') }}</div>
