@@ -32,7 +32,7 @@
                                 {{ __('Dashboards') }}
                             </a>
                             <a class="nav-link" href="/workschedule">
-                                <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                                <div class="nav-link-icon"><i data-feather="clock"></i></div>
                                 {{ __('Work Schedule') }}
                             </a>
                             <div class="sidenav-menu-heading">{{ __('User') }}</div>
