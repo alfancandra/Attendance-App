@@ -59,7 +59,7 @@ class ForgotPasswordController extends Controller {
                     ->subject("Reset Password Request");
             });
 
-            return redirect()->route('login') -> with('success', "A reset password email was successfully delivered!");
+            return redirect()->route('login') -> with('success', "Reset password email was successfully delivered!");
         } catch (QueryException $e) {
             return redirect()->route('register')->with(['error' => $e->errorInfo]);
         }
@@ -97,7 +97,7 @@ class ForgotPasswordController extends Controller {
             }
 
             if (request('password') != request('password_confirmation')) {
-                return redirect() -> back() -> with('error', "Password is not match!");
+                return redirect() -> back() -> with('error', "Password did not match!");
             }
 
             $user->password = Hash::make(request('password'));

@@ -51,14 +51,14 @@ class AdminEmployeeController extends Controller {
         $datauser = User::find($id);
         $datauser->delete();
         $usermail = $datauser->email;
-        Mail::html("Hello $datauser->name, your account has been deleted by Admin", function ($message) use ($usermail) {
+        Mail::html("Hello $datauser->name, your account has been removed by Admin", function ($message) use ($usermail) {
             $message
                 ->from('admin@attendance-app.com', 'Attendance App')
                 ->to($usermail)
                 ->subject("Account Deleted");
         });
 
-        return redirect()->route('adm.employee')->with(['success' => 'Success delete user!']);
+        return redirect()->route('adm.employee')->with(['success' => 'Success remove user!']);
     }
 }
  

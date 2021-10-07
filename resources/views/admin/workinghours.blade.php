@@ -64,17 +64,84 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($hours->active == 0)
-                                                <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to activate this working hour?')" href="{{ route('adm.activatehours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Activate"><i class="text-dark" data-feather="check"></i></a>
+                                                <span data-toggle="modal" data-target="#activateModal">
+                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark"  data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Activate">
+                                                        <i class="text-dark" data-feather="check"></i>
+                                                    </a>
+                                                </span>
                                             @elseif ($hours->active == 1)
-                                                <a onclick="return confirm('Are you sure want to deactivate this working hour?')" href="{{ route('adm.deactivatehours', $hours->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Deactivate"><i class="text-dark" data-feather="x"></i></a>
+                                                <span data-toggle="modal" data-target="#deactivateModal">
+                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Deactivate">
+                                                        <i class="text-dark" data-feather="x"></i>
+                                                    </a>
+                                                </span>
                                             @endif
-                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.editworkinghours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Edit"><i class="text-dark" data-feather="edit"></i></a>
-                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure want to delete this working hour?')" href="{{ route('adm.destroyworkinghours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Remove"><i class="text-dark" data-feather="trash"></i></a>
+                                            <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.editworkinghours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Edit">
+                                                <i class="text-dark" data-feather="edit"></i>
+                                            </a>
+                                            <span data-toggle="modal" data-target="#deleteModal">
+                                                <a class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Remove">
+                                                    <i class="text-dark" data-feather="trash"></i>
+                                                </a>
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="activateModalLabel">Activate Confirmation</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure want to activate this working hour?</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                            <a href="{{ route('adm.activatehours', $hours->id) }}" class="btn btn-danger" id="stop">Yes</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="deactivateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deactivateModalLabel">Deactivate Confirmation</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure want to deactivate this working hour?</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                        <a href="{{ route('adm.deactivatehours', $hours->id) }}" class="btn btn-danger" id="stop">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure want to delete this working hour?</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                        <a href="{{ route('adm.destroyworkinghours', $hours->id) }}" class="btn btn-danger" id="stop">Yes</a>
                     </div>
                 </div>
             </div>

@@ -52,7 +52,7 @@ class RegisterController extends Controller {
             // Email verification process, and user can't login
             $this->emailverification($request->email);
 
-            return redirect()->route('login')->with(['success' => 'Success create account!. Please check your email and click the link to activate your account.']);
+            return redirect()->route('login')->with(['success' => 'Success create account. Please check your email and click the link to activate your account.']);
         } catch (QueryException $e) {
             return redirect()->route('register')->with(['error' => $e->errorInfo]);
         }
