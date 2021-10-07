@@ -32,13 +32,13 @@ class AdminWorkingHoursController extends Controller {
     // Deactivate Working Hours
     public function deactivate($id) {
         $getDayname = WorkingHour::where('id',$id)->first();
-        $firstInSameDay = WorkingHour::first();
         $count = WorkingHour::where('name',$getDayname->name)->count();
         if($count>1){
             $datahours = WorkingHour::where('id', $id)->first();
             $datahours->active = 0;
             $datahours->save();
 
+            $firstInSameDay = WorkingHour::where('name',$getDayname->name)->first();
             $firstInSameDay->active = 1;
             $firstInSameDay->save();
             return redirect()->route('adm.workinghours')->with(['success' => 'Success deactivate working hour!']);
@@ -128,12 +128,13 @@ class AdminWorkingHoursController extends Controller {
     // Delete Working Hours Function
     public function destroy($id) {
         $getDayname = WorkingHour::where('id',$id)->first();
-        $firstInSameDay = WorkingHour::first();
+        
         $count = WorkingHour::where('name',$getDayname->name)->count();
         if($count>1 && $getDayname->active == 1){
             $datauser = WorkingHour::find($id);
             $datauser->delete();
 
+            $firstInSameDay = WorkingHour::where('name',$getDayname->name)->first();
             $firstInSameDay->active = 1;
             $firstInSameDay->save();
             return redirect()->route('adm.workinghours')->with(['success' => 'Success deactivate working hour!']);

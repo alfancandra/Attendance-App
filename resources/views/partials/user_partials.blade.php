@@ -31,6 +31,10 @@
                                 <div class="nav-link-icon"><i data-feather="activity"></i></div>
                                 {{ __('Dashboards') }}
                             </a>
+                            <a class="nav-link" href="/workschedule">
+                                <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                                {{ __('Work Schedule') }}
+                            </a>
                             <div class="sidenav-menu-heading">{{ __('User') }}</div>
                             <a class="nav-link" href="/report">
                                 <div class="nav-link-icon"><i data-feather="bar-chart-2"></i></div>

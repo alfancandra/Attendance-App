@@ -26,4 +26,11 @@ class DashboardController extends Controller {
 
         return view('user.dashboard',compact('attendance','office','workinghour'));
     }
+
+    // Work Schedule Page
+    public function workschedule ()
+    {
+        $workinghour = WorkingHour::where('active',1)->get();
+        return view('user.workschedule',compact('workinghour'));
+    }
 }

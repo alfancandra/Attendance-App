@@ -38,21 +38,27 @@ class LoginController extends Controller {
         }
 
         try {
-            $akun = $request->only('email','password');
-            if (Auth::attempt($akun)) {
-                $AuthUser = Auth::user();
-                if ($AuthUser->role_id==0 && !empty($AuthUser->email_verified_at) && $AuthUser->active==1) {
-                    return redirect() -> route('usr.dashboard');
-                } elseif($AuthUser->role_id==1 && !empty($AuthUser->email_verified_at) && $AuthUser->active==1) {
-                    return redirect()->route('adm.employee');
-                } else {
-                    Auth::logout();
+            $user = User::where('email',$request->email)->first();
+            if($user){
+                $akun = $request->only('email','password');
+                if (Auth::attempt($akun)) {
+                    $AuthUser = Auth::user();
+                    if ($AuthUser->role_id==0 && !empty($AuthUser->email_verified_at) && $AuthUser->active==1) {
+                        return redirect() -> route('usr.dashboard');
+                    } elseif($AuthUser->role_id==1 && !empty($AuthUser->email_verified_at) && $AuthUser->active==1) {
+                        return redirect()->route('adm.employee');
+                    } else {
+                        Auth::logout();
 
-                    return redirect() -> route('login') -> with(['error' => 'Account not verified by Admin']);
+                        return redirect() -> route('login') -> with(['error' => 'Account not verified by Admin']);
+                    }
+                } else {
+                    return redirect() -> route('login') -> with(['error' => 'Wrong email or password!']);
                 }
-            } else {
-                return redirect() -> route('login') -> with(['error' => 'Wrong email or password!']);
+            }else{
+                return redirect() -> route('login') -> with(['error' => 'Email Not Found']);
             }
+            
         } catch (QueryException $e) {
             // return response()->json([
             //     'message' => "Failed " . $e->errorInfo
