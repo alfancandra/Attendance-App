@@ -43,7 +43,7 @@ class AdminWorkingHoursController extends Controller {
             $firstInSameDay->save();
             return redirect()->route('adm.workinghours')->with(['success' => 'Success deactivate working hour!']);
         }else{
-            return redirect()->route('adm.workinghours')->with(['error' => 'Must Add 1 More in Same Day']);
+            return redirect()->route('adm.workinghours')->with(['error' => 'Cannot deactivate because there is only 1 working hour. At least there are 2 working hours with the same day.']);
         }
         
     }
@@ -136,13 +136,13 @@ class AdminWorkingHoursController extends Controller {
 
             $firstInSameDay->active = 1;
             $firstInSameDay->save();
-            return redirect()->route('adm.workinghours')->with(['success' => 'Success deactivate working hour!']);
+            return redirect()->route('adm.workinghours')->with(['success' => 'Success delete working hour!']);
         }elseif($count>1 && $getDayname->active == 0){
             $datauser = WorkingHour::find($id);
             $datauser->delete();
-            return redirect()->route('adm.workinghours')->with(['success' => 'Success deactivate working hour!']);
+            return redirect()->route('adm.workinghours')->with(['success' => 'Success delete working hour!']);
         }else{
-            return redirect()->route('adm.workinghours')->with(['error' => 'Cannot Delete Working Hours if there is only 1 day']);
+            return redirect()->route('adm.workinghours')->with(['error' => 'Cannot delete working hour if there is only 1 day']);
         }
 
         return redirect()->route('adm.workinghours')->with(['success' => 'Success delete working hour!']);

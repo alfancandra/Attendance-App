@@ -63,15 +63,55 @@
                                         <td>
                                             @if(!empty($user->email_verified_at) && $user->active == 0)
                                                 <a href="{{ route('adm.accemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Approve"><i class="text-dark" data-feather="check"></i></a>
-                                                <a onclick="return confirm('Are you sure to Reject this User ?')" href="{{ route('adm.rejectemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reject"><i class="text-dark" data-feather="x"></i></a>
+                                                <span data-toggle="modal" data-target="#rejectModal">
+                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reject"><i class="text-dark" data-feather="x"></i></a>
+                                                </span>
                                             @else
-                                                <a onclick="return confirm('Are you sure to Delete this User ?')" href="{{ route('adm.destroyemployee', $user->id) }}" class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Remove"><i class="text-dark" data-feather="trash"></i></a>
+                                                <span data-toggle="modal" data-target="#removeModal">
+                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Remove"><i class="text-dark" data-feather="trash"></i></a>
+                                                </span>
                                             @endif
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rejectModalLabel">Reject User Confirmation</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure you want to reject this user?</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                        <a href="{{ route('adm.rejectemployee', $user->id) }}" class="btn btn-danger" id="stop">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="removeModalLabel">Remove User Confirmation</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure you want to remove this user?</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                        <a href="{{ route('adm.destroyemployee', $user->id) }}" class="btn btn-danger" id="stop">Yes</a>
                     </div>
                 </div>
             </div>

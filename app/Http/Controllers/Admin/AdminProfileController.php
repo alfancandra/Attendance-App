@@ -39,7 +39,7 @@ class AdminProfileController extends Controller {
                         // Get Admin Password
                         $user->password = Hash::make($request->password);
                     } else {
-                        return redirect() -> route('adm.adminprofile')->with(['password' => 'Password confirmation not same!']);
+                        return redirect() -> route('adm.adminprofile')->with(['password' => 'New password did not match. Try again!']);
                     }
                 } else {
                     return redirect() -> route('adm.adminprofile')->with(['current_password' => 'Wrong Password!']);

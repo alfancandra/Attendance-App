@@ -40,7 +40,7 @@ class UserProfileController extends Controller {
                     if($request->password == $request->password_confirmation) {
                         $user->password = Hash::make($request->password);
                      }else {
-                        return redirect() -> route('usr.profile') -> with(['password' => 'Password confirmation not same!']);
+                        return redirect() -> route('usr.profile') -> with(['password' => 'New password did not match. Try again!']);
                     }
                 } else {
                     return redirect() -> route('usr.profile') -> with(['current_password' => 'Wrong Password!']);
