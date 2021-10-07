@@ -41,7 +41,7 @@
                                     <td>{{ $a->name }}</td>
                                     <td>{{ $a->email }}</td>
                                     <td>{{ $a->total }}</td>
-                                    <td>{{ $a->month }} - {{ $a->year }}</td>
+                                    <td>{{ Carbon\Carbon::parse($a->monthyear)->format('F Y') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
