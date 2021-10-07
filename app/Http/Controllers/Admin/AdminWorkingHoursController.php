@@ -15,16 +15,20 @@ class AdminWorkingHoursController extends Controller {
     // Activate Working Hours
     public function activate($id) {
         $getDayname = WorkingHour::where('id',$id)->first();
-        $getSameWorkingHour = WorkingHour::where('name',$getDayname->name)->get();
+        $getSameWorkingHour = WorkingHour::where('name',$getDayname->name)->where('id','!=',$id)->get();
+        $datahours = WorkingHour::where('id', $id)->first();
         if($getSameWorkingHour){
+            $datahours->active = 1;
+            $datahours->save();
             foreach($getSameWorkingHour as $getSame){
                 $getSame->active = 'false';
                 $getSame->save();
             }
+        }else{
+            $datahours->active = 1;
+            $datahours->save();
         }
-        $datahours = WorkingHour::where('id', $id)->first();
-        $datahours->active = 1;
-        $datahours->save();
+        
 
         return redirect()->route('adm.workinghours')->with(['success' => 'Success activate working hours!']);
     }
@@ -38,7 +42,7 @@ class AdminWorkingHoursController extends Controller {
             $datahours->active = 0;
             $datahours->save();
 
-            $firstInSameDay = WorkingHour::where('name',$getDayname->name)->first();
+            $firstInSameDay = WorkingHour::where('name',$getDayname->name)->where('id','!=',$id)->first();
             $firstInSameDay->active = 1;
             $firstInSameDay->save();
             return redirect()->route('adm.workinghours')->with(['success' => 'Success deactivate working hour!']);

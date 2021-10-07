@@ -64,14 +64,14 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($hours->active == 0)
-                                                <span data-toggle="modal" data-target="#activateModal">
-                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark"  data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Activate">
+                                                <span>
+                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.activatehours', $hours->id) }}">
                                                         <i class="text-dark" data-feather="check"></i>
                                                     </a>
                                                 </span>
                                             @elseif ($hours->active == 1)
-                                                <span data-toggle="modal" data-target="#deactivateModal">
-                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Deactivate">
+                                                <span>
+                                                    <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.deactivatehours', $hours->id) }}">
                                                         <i class="text-dark" data-feather="x"></i>
                                                     </a>
                                                 </span>
@@ -79,8 +79,8 @@
                                             <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{{ route('adm.editworkinghours', $hours->id) }}" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Edit">
                                                 <i class="text-dark" data-feather="edit"></i>
                                             </a>
-                                            <span data-toggle="modal" data-target="#deleteModal">
-                                                <a class="btn btn-datatable btn-icon btn-transparent-dark" data-html="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Remove">
+                                            <span>
+                                                <a class="btn btn-datatable btn-icon btn-transparent-dark" onclick="return confirm('Are you sure you want to delete this item?');" href="{{ route('adm.destroyworkinghours', $hours->id) }}">
                                                     <i class="text-dark" data-feather="trash"></i>
                                                 </a>
                                             </span>
