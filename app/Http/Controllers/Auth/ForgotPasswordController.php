@@ -74,6 +74,9 @@ class ForgotPasswordController extends Controller {
 
     // Save New Password
     public function newpassword($userToken, $timestamp) {
+        $validator = Validator::make(request()->all(),[
+            'password' => ['min:8', 'max:16']
+        ]);
         try {
             $token = explode("|", base64_decode($userToken));
             empty($token[0]) ? $name='' : $name=$token[0];
@@ -100,6 +103,10 @@ class ForgotPasswordController extends Controller {
                 return redirect() -> back() -> with('error', "Password did not match!");
             }
 
+            if ($validator->fails()) {
+                return redirect() -> back() -> with(['error' => 'The password must be at least 8 characters.']);
+            }
+            
             $user->password = Hash::make(request('password'));
             $user->save();
 
